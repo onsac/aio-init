@@ -52,7 +52,7 @@ check_step()
 {
    seq=$1
    FILE="/tmp/steps.txt"
-   if [ "$seq" -eq "1" ]; then
+   if [ "$seq" -eq "0" ]; then
       if [ -f "$FILE" ]; then
          if [ "$(grep "$seq -" $FILE)" = "" ]; then
             return $TRUE

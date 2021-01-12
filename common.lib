@@ -51,7 +51,7 @@ pw2()
 check_step()
 {
    seq=$1
-   FILE="steps.txt"
+   FILE="/tmp/steps.txt"
    if [ "$seq" -eq "1" ]; then
       if [ -f "$FILE" ]; then
          if [ "$(grep "$seq -" $FILE)" = "" ]; then
@@ -62,6 +62,7 @@ check_step()
          fi
       else
          touch $FILE
+         chmod 755 $FILE
          return $TRUE
       fi
    else
@@ -77,7 +78,7 @@ set_step()
 {
    seq=$1
    texto=$2
-   FILE="steps.txt"
+   FILE="/tmp/steps.txt"
    echo "$seq - $texto" >>$FILE
    echo "$seq - $texto"
    return $TRUE

@@ -17,7 +17,10 @@ get_common && echo "0.1 - get common OK" || echo "0.1 - get common failed" | exi
 
 . /tmp/.common.lib && echo "0.2 - set common OK" || echo "0.2 - set common failed" | exit 1
 
-is_root_user && echo "0.3 - Usuário root OK" || echo "0.3 - Usuário root failed" | exit 1
+check_step 0
+if [ "$?" -eq "0" ]; then
+   is_root_user && set_step 0 "Usuário root OK" || echo "0 - Usuário root failed" | exit 1
+fi
 
 check_step 1
 if [ "$?" -eq "0" ]; then

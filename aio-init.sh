@@ -113,7 +113,7 @@ fi
 
 check_step 17
 if [ "$?" -eq "0" ]; then
-   cd /aio/aiop | git clone onsac@bitbucket.org/onsac-aio/aio-setup.git && set_step 17 "git clone aio-setup OK" || echo "17 - git clone aio-setup failed" | exit 1
+   cd /aio/aiop | git clone http://onsac:vAsco030%40@bitbucket.org/onsac-aio/aio-setup.git && set_step 17 "git clone aio-setup OK" || echo "17 - git clone aio-setup failed" | exit 1
 fi
 
 check_step 18

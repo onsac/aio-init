@@ -62,7 +62,7 @@ check_step()
          fi
       else
          touch $FILE
-         chmod 755 $FILE
+         chmod 777 $FILE
          return $TRUE
       fi
    else

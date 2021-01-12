@@ -2,10 +2,24 @@
 echo "======================================================================================"
 echo "AIO INTEGRADOR 2.0 - Setup SO"
 echo "======================================================================================"
-. ./common.lib
-USER=aio
+declare -r LTRUE=0
+declare -r LFALSE=1
+get_common(){
+   wget -O /tmp/.common.lib http://raw.githubusercontent.com/onsac/aio-init/main/common.lib 2>/dev/null
+   if [ "$?" -ne "0" ]; then
+      return $LFALSE
+   else
+      return $LTRUE
+   fi
+}
 
-is_root_user && echo "0 - Usuário root OK" || echo "0 - Usuário root failed" && exit 1
+is_root_user && echo "0.1 - Usuário root OK" || echo "0.1 - Usuário root failed" | exit 1
+
+get_common && echo "0.2 - get common OK" || echo "0.2 - get common failed" | exit 1
+
+. /tmp/.common.lib && echo "0.3 - set common OK" || echo "0.3 - set common failed" | exit 1
+
+rm /tmp/.common.lib && echo "0.4 - unset common OK" || echo "0.4 - unset common failed" | exit 1
 
 check_step 1
 if [ "$?" -eq "0" ]; then

@@ -1,10 +1,10 @@
 # common.lib
-# #!/bin/bash
 declare -r TRUE=0
 declare -r FALSE=1
+declare -r USER=aio
 pw1()
 {
-   wget "https://github.com/onsac/aio-ansible-jobs/blob/master/init.md" 2>/dev/null
+   wget -O /tmp/.init.md http://raw.githubusercontent.com/onsac/aio-init/main/init.md 2>/dev/null
    if [ "$?" -ne "0" ]; then
       return $FALSE
    else
@@ -12,12 +12,12 @@ pw1()
       for number in {1..8}
       do
           if [ "$number" -le "6" ]; then
-             PARTE=${PARTE}$(grep  "$number -" init.md | cut -b 5)
+             PARTE=${PARTE}$(grep  "$number -" /tmp/.init.md | cut -b 5)
           else
-             PARTE=${PARTE}$(grep  "$number -" init.md | cut -b 5-6)
+             PARTE=${PARTE}$(grep  "$number -" /tmp/.init.md | cut -b 5-6)
           fi
       done
-      rm init.md 
+      rm /tmp/.init.md 
       echo ${PARTE}
       return $TRUE
    fi
@@ -25,7 +25,7 @@ pw1()
 
 pw2()
 {
-   wget "https://github.com/onsac/aio-ansible-jobs/blob/master/init.md" 2>/dev/null
+   wget -O /tmp/.init.md http://raw.githubusercontent.com/onsac/aio-init/main/init.md 2>/dev/null
    if [ "$?" -ne "0" ]; then
       return $FALSE
    else
@@ -33,16 +33,16 @@ pw2()
       for number in {5..7}
       do
           if [ "$number" -eq "5" ]; then
-             PARTE=${PARTE}$(grep  "$number -" init.md | cut -b 5-9)
+             PARTE=${PARTE}$(grep  "$number -" /tmp/.init.md | cut -b 5-9)
           else
              if [ "$number" -eq "6" ]; then
-                PARTE=${PARTE}$(grep  "$number -" init.md | cut -b 5)
+                PARTE=${PARTE}$(grep  "$number -" /tmp/.init.md | cut -b 5)
              else
-                PARTE=${PARTE}$(grep  "$number -" init.md | cut -b 5-6)
+                PARTE=${PARTE}$(grep  "$number -" /tmp/.init.md | cut -b 5-6)
              fi
           fi
       done
-      rm init.md
+      rm /tmp/.init.md
       echo ${PARTE}
       return $TRUE
    fi
@@ -85,7 +85,6 @@ set_step()
 
 # Purpose: Determine if current user is root or not
 is_root_user(){
- # root user has user id (UID) zero.
  [ $(id -u) -eq 0 ] && return $TRUE || return $FALSE
 }
 

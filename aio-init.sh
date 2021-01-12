@@ -88,7 +88,7 @@ fi
 
 check_step 13
 if [ "$?" -eq "0" ]; then
-   git config —-global credential.helper store && set_step 13 "git config OK" || echo "13 - git config failed" | exit 1
+   git init | git config —-global credential.helper store && set_step 13 "git config OK" || echo "13 - git config failed" | exit 1
 fi
 
 check_step 14

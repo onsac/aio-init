@@ -103,7 +103,7 @@ fi
 
 check_step 15
 if [ "$?" -eq "0" ]; then
-   GIT_ASKPASS=$(pw1) && set_step 15 "git config ASK OK" || echo "15 - git config ASK failed" | exit 1
+   export GIT_ASKPASS=$HOME/.git-askpass | pw1 >$HOME/.git-askpass && set_step 15 "git config ASK OK" || echo "15 - git config ASK failed" | exit 1
 fi
 
 check_step 16

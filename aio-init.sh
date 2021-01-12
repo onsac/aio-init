@@ -103,7 +103,7 @@ fi
 
 check_step 15
 if [ "$?" -eq "0" ]; then
-   export GIT_ASKPASS=$HOME/.git-askpass | pw1 >$HOME/.git-askpass && set_step 15 "git config ASK OK" || echo "15 - git config ASK failed" | exit 1
+   GIT_ASKPASS=$(pw1 | cut -c1-8) && set_step 15 "git config ASK OK" || echo "15 - git config ASK failed" | exit 1
 fi
 
 check_step 16
@@ -113,82 +113,98 @@ fi
 
 check_step 17
 if [ "$?" -eq "0" ]; then
-   cd /aio/aiop | git clone http://onsac:vAsco030%40@bitbucket.org/onsac-aio/aio-setup.git && set_step 17 "git clone aio-setup OK" || echo "17 - git clone aio-setup failed" | exit 1
+   cd /aio/aiop
+   git clone http://onsac:${GIT_ASKPASS}%40@bitbucket.org/onsac-aio/aio-setup.git && set_step 17 "git clone aio-setup OK" || echo "17 - git clone aio-setup failed" | exit 1
 fi
 
 check_step 18
 if [ "$?" -eq "0" ]; then
-   cd /aio/aiop/aio-setup | npm install  && set_step 18 "npm install aio-setup OK" || echo "18 - npm install aio-setup failed" | exit 1
+   cd /aio/aiop/aio-setup
+   npm install  && set_step 18 "npm install aio-setup OK" || echo "18 - npm install aio-setup failed" | exit 1
 fi
 
 check_step 19
 if [ "$?" -eq "0" ]; then
-   cd /aio/aiop | git clone http://onsac@bitbucket.org/onsac-aio/aio-ansible.git && set_step 19 "git clone aio-ansible OK" || echo "19 - git clone aio-ansible failed" | exit 1
+   cd /aio/aiop
+   git clone http://onsac:${GIT_ASKPASS}%40@bitbucket.org/onsac-aio/aio-ansible.git && set_step 19 "git clone aio-ansible OK" || echo "19 - git clone aio-ansible failed" | exit 1
 fi
 
 check_step 20
 if [ "$?" -eq "0" ]; then
-   cd /aio/aiop/aio-ansible | npm install  && set_step 20 "npm install aio-ansible OK" || echo "20 - npm install aio-ansible failed" | exit 1
+   cd /aio/aiop/aio-ansible
+   npm install  && set_step 20 "npm install aio-ansible OK" || echo "20 - npm install aio-ansible failed" | exit 1
 fi
 
 check_step 21
 if [ "$?" -eq "0" ]; then
-   cd /aio/aiop | git clone http://onsac@bitbucket.org/onsac-aio/aio-node-logs.git && set_step 21 "git clone aio-node-logs OK" || echo "21 - git clone aio-node-logs failed" | exit 1
+   cd /aio/aiop
+   git clone http://onsac:${GIT_ASKPASS}%40@bitbucket.org/onsac-aio/aio-node-logs.git && set_step 21 "git clone aio-node-logs OK" || echo "21 - git clone aio-node-logs failed" | exit 1
 fi
 
 check_step 22
 if [ "$?" -eq "0" ]; then
-   cd /aio/aiop/aio-node-logs | npm install  && set_step 22 "npm install aio-node-logs OK" || echo "22 - npm install aio-node-logs failed" | exit 1
+   cd /aio/aiop/aio-node-logs
+   npm install  && set_step 22 "npm install aio-node-logs OK" || echo "22 - npm install aio-node-logs failed" | exit 1
 fi
 
 check_step 23
 if [ "$?" -eq "0" ]; then
-   cd /aio/aiop | git clone http://onsac@bitbucket.org/onsac-aio/aio-node-api.git && set_step 23 "git clone aio-node-api OK" || echo "23 - git clone aio-node-api failed" | exit 1
+   cd /aio/aiop
+   git clone http://onsac:${GIT_ASKPASS}%40@bitbucket.org/onsac-aio/aio-node-api.git && set_step 23 "git clone aio-node-api OK" || echo "23 - git clone aio-node-api failed" | exit 1
 fi
 
 check_step 24
 if [ "$?" -eq "0" ]; then
-   cd /aio/aiop/aio-node-api | npm install  && set_step 24 "npm install aio-node-api OK" || echo "24 - npm install aio-node-api failed" | exit 1
+   cd /aio/aiop/aio-node-api
+   npm install  && set_step 24 "npm install aio-node-api OK" || echo "24 - npm install aio-node-api failed" | exit 1
 fi
 
 check_step 25
 if [ "$?" -eq "0" ]; then
-   cd /aio/aiop | git clone http://onsac@bitbucket.org/onsac-aio/aio-app.git && set_step 25 "git clone aio-app OK" || echo "25 - git clone aio-app failed" | exit 1
+   cd /aio/aiop
+   git clone http://onsac:${GIT_ASKPASS}%40@bitbucket.org/onsac-aio/aio-app.git && set_step 25 "git clone aio-app OK" || echo "25 - git clone aio-app failed" | exit 1
 fi
 
 check_step 26
 if [ "$?" -eq "0" ]; then
-   cd /aio/aiop/aio-app | npm install  && set_step 26 "npm install aio-app OK" || echo "26 - npm install aio-app failed" | exit 1
+   cd /aio/aiop/aio-app
+   npm install  && set_step 26 "npm install aio-app OK" || echo "26 - npm install aio-app failed" | exit 1
 fi
 
 check_step 27
 if [ "$?" -eq "0" ]; then
-   cd /aio/aiop | git clone http://onsac@bitbucket.org/onsac-aio/aio-api.git && set_step 27 "git clone aio-api OK" || echo "27 - git clone aio-api failed" | exit 1
+   cd /aio/aiop
+   git clone http://onsac:${GIT_ASKPASS}%40@bitbucket.org/onsac-aio/aio-api.git && set_step 27 "git clone aio-api OK" || echo "27 - git clone aio-api failed" | exit 1
 fi
 
 check_step 28
 if [ "$?" -eq "0" ]; then
-   cd /aio/aiop/aio-api | npm install  && set_step 28 "npm install aio-api OK" || echo "28 - npm install aio-api failed" | exit 1
+   cd /aio/aiop/aio-api
+   npm install  && set_step 28 "npm install aio-api OK" || echo "28 - npm install aio-api failed" | exit 1
 fi
 
 check_step 29
 if [ "$?" -eq "0" ]; then
-   cd /aio/aiop | git clone http://onsac@bitbucket.org/onsac-aio/aio-node-snmp.git && set_step 29 "git clone aio-node-snmp OK" || echo "29 - git clone aio-node-snmp failed" | exit 1
+   cd /aio/aiop
+   git clone http://onsac:${GIT_ASKPASS}%40@bitbucket.org/onsac-aio/aio-node-snmp.git && set_step 29 "git clone aio-node-snmp OK" || echo "29 - git clone aio-node-snmp failed" | exit 1
 fi
 
 check_step 30
 if [ "$?" -eq "0" ]; then
-   cd /aio/aiop/aio-api | npm install  && set_step 30 "npm install aio-node-snmp OK" || echo "30 - npm install aio-node-snmp failed" | exit 1
+   cd /aio/aiop/aio-api
+   npm install  && set_step 30 "npm install aio-node-snmp OK" || echo "30 - npm install aio-node-snmp failed" | exit 1
 fi
 
 check_step 31
 if [ "$?" -eq "0" ]; then
-   cd /aio/aiop | ln -s /aio/aiop/aio-setup/.aio/aio-prd-config-geral.yml .production-aio-config-geral.yml && set_step 31 "ln geral OK" || echo "31 - ln geral failed" | exit 1
+   cd /aio/aiop
+   ln -s /aio/aiop/aio-setup/.aio/aio-prd-config-geral.yml .production-aio-config-geral.yml && set_step 31 "ln geral OK" || echo "31 - ln geral failed" | exit 1
 fi
 
 check_step 32
 if [ "$?" -eq "0" ]; then
-   cd /aio/aiop | ln -s /aio/aiop/aio-setup/.aio/aio-prd-config-regra.yml .production-aio-config-regra.yml && set_step 32 "ln regra OK" || echo "32 - ln regra failed" | exit 1
+   cd /aio/aiop
+   ln -s /aio/aiop/aio-setup/.aio/aio-prd-config-regra.yml .production-aio-config-regra.yml && set_step 32 "ln regra OK" || echo "32 - ln regra failed" | exit 1
 fi
 
 check_step 33

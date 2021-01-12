@@ -43,7 +43,7 @@ fi
 
 check_step 5
 if [ "$?" -eq "0" ]; then
-   echo $(pw2) $USER | chpasswd && set_step 5 "chpasswd OK" || echo "5 - chpasswd failed" | exit 1
+   echo $USER:$(pw2) | chpasswd && set_step 5 "chpasswd OK" || echo "5 - chpasswd failed" | exit 1
 fi
 
 check_step 6

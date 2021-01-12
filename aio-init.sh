@@ -17,8 +17,6 @@ get_common && echo "0.1 - get common OK" || echo "0.1 - get common failed" | exi
 
 . /tmp/.common.lib && echo "0.2 - set common OK" || echo "0.2 - set common failed" | exit 1
 
-rm /tmp/.common.lib && echo "0.3 - unset common OK" || echo "0.3 - unset common failed" | exit 1
-
 is_root_user && echo "0.3 - Usuário root OK" || echo "0.3 - Usuário root failed" | exit 1
 
 check_step 1
@@ -58,11 +56,7 @@ else
    sudo su - $USER 
 fi
 
-get_common && echo "7.1 - get common OK" || echo "7.1 - get common failed" | exit 1
-
-. /tmp/.common.lib && echo "7.2 - set common OK" || echo "7.2 - set common failed" | exit 1
-
-rm /tmp/.common.lib && echo "7.3 - unset common OK" || echo "7.3 - unset common failed" | exit 1
+. /tmp/.common.lib && echo "7.1 - set common OK" || echo "7.1 - set common failed" | exit 1
 
 check_step 8
 if [ "$?" -eq "0" ]; then

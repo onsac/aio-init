@@ -4,7 +4,6 @@ echo "AIO INTEGRADOR 2.0 - Setup SO"
 echo "======================================================================================"
 declare -r LTRUE=0
 declare -r LFALSE=1
-declare -r TOKEN=onsac:3hevQqWGb2U4wNNA25LF
 get_common(){
    wget -O /tmp/.common.lib http://raw.githubusercontent.com/onsac/aio-init/main/common.lib 2>/dev/null
    if [ "$?" -ne "0" ]; then

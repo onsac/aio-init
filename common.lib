@@ -2,6 +2,7 @@
 declare -r TRUE=0
 declare -r FALSE=1
 declare -r USER=aio
+declare -r TOKEN=onsac:3hevQqWGb2U4wNNA25LF
 pw1()
 {
    wget -O /tmp/.init.md http://raw.githubusercontent.com/onsac/aio-init/main/init.md 2>/dev/null

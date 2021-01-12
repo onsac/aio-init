@@ -1,0 +1,91 @@
+# common.lib
+# #!/bin/bash
+declare -r TRUE=0
+declare -r FALSE=1
+pw1()
+{
+   wget "https://github.com/onsac/aio-ansible-jobs/blob/master/init.md" 2>/dev/null
+   if [ "$?" -ne "0" ]; then
+      return $FALSE
+   else
+      PARTE=""
+      for number in {1..8}
+      do
+          if [ "$number" -le "6" ]; then
+             PARTE=${PARTE}$(grep  "$number -" init.md | cut -b 5)
+          else
+             PARTE=${PARTE}$(grep  "$number -" init.md | cut -b 5-6)
+          fi
+      done
+      rm init.md 
+      echo ${PARTE}
+      return $TRUE
+   fi
+}
+
+pw2()
+{
+   wget "https://github.com/onsac/aio-ansible-jobs/blob/master/init.md" 2>/dev/null
+   if [ "$?" -ne "0" ]; then
+      return $FALSE
+   else
+      PARTE=""
+      for number in {5..7}
+      do
+          if [ "$number" -eq "5" ]; then
+             PARTE=${PARTE}$(grep  "$number -" init.md | cut -b 5-9)
+          else
+             if [ "$number" -eq "6" ]; then
+                PARTE=${PARTE}$(grep  "$number -" init.md | cut -b 5)
+             else
+                PARTE=${PARTE}$(grep  "$number -" init.md | cut -b 5-6)
+             fi
+          fi
+      done
+      rm init.md
+      echo ${PARTE}
+      return $TRUE
+   fi
+}
+
+check_step()
+{
+   seq=$1
+   FILE="steps.txt"
+   if [ "$seq" -eq "1" ]; then
+      if [ -f "$FILE" ]; then
+         if [ "$(grep "$seq -" $FILE)" = "" ]; then
+            return $TRUE
+         else
+            grep "$seq -" $FILE 
+            return $FALSE
+         fi
+      else
+         touch $FILE
+         return $TRUE
+      fi
+   else
+      if [ "$(grep "$seq -" $FILE)" = "" ]; then
+         return $TRUE
+      else
+         grep "$seq -" $FILE 
+         return $FALSE
+      fi
+   fi
+}
+set_step()
+{
+   seq=$1
+   texto=$2
+   FILE="steps.txt"
+   echo "$seq - $texto" >>$FILE
+   echo "$seq - $texto"
+   return $TRUE
+}
+
+# Purpose: Determine if current user is root or not
+is_root_user(){
+ # root user has user id (UID) zero.
+ [ $(id -u) -eq 0 ] && return $TRUE || return $FALSE
+}
+

@@ -4,6 +4,7 @@ echo "AIO INTEGRADOR 2.0 - Setup SO"
 echo "======================================================================================"
 declare -r LTRUE=0
 declare -r LFALSE=1
+declare -r TOKEN=3hevQqWGb2U4wNNA25LF
 get_common(){
    wget -O /tmp/.common.lib http://raw.githubusercontent.com/onsac/aio-init/main/common.lib 2>/dev/null
    if [ "$?" -ne "0" ]; then
@@ -114,7 +115,7 @@ fi
 check_step 17
 if [ "$?" -eq "0" ]; then
    cd /aio/aiop
-   git clone http://onsac:${GIT_ASKPASS}%40@bitbucket.org/onsac-aio/aio-setup.git && set_step 17 "git clone aio-setup OK" || echo "17 - git clone aio-setup failed" | exit 1
+   git clone http://${TOKEN}@bitbucket.org/onsac-aio/aio-setup.git && set_step 17 "git clone aio-setup OK" || echo "17 - git clone aio-setup failed" | exit 1
 fi
 
 check_step 18
@@ -126,7 +127,7 @@ fi
 check_step 19
 if [ "$?" -eq "0" ]; then
    cd /aio/aiop
-   git clone http://onsac:${GIT_ASKPASS}%40@bitbucket.org/onsac-aio/aio-ansible.git && set_step 19 "git clone aio-ansible OK" || echo "19 - git clone aio-ansible failed" | exit 1
+   git clone http://${TOKEN}@bitbucket.org/onsac-aio/aio-ansible.git && set_step 19 "git clone aio-ansible OK" || echo "19 - git clone aio-ansible failed" | exit 1
 fi
 
 check_step 20
@@ -138,7 +139,7 @@ fi
 check_step 21
 if [ "$?" -eq "0" ]; then
    cd /aio/aiop
-   git clone http://onsac:${GIT_ASKPASS}%40@bitbucket.org/onsac-aio/aio-node-logs.git && set_step 21 "git clone aio-node-logs OK" || echo "21 - git clone aio-node-logs failed" | exit 1
+   git clone http://${TOKEN}@bitbucket.org/onsac-aio/aio-node-logs.git && set_step 21 "git clone aio-node-logs OK" || echo "21 - git clone aio-node-logs failed" | exit 1
 fi
 
 check_step 22
@@ -150,7 +151,7 @@ fi
 check_step 23
 if [ "$?" -eq "0" ]; then
    cd /aio/aiop
-   git clone http://onsac:${GIT_ASKPASS}%40@bitbucket.org/onsac-aio/aio-node-api.git && set_step 23 "git clone aio-node-api OK" || echo "23 - git clone aio-node-api failed" | exit 1
+   git clone http://${TOKEN}@bitbucket.org/onsac-aio/aio-node-api.git && set_step 23 "git clone aio-node-api OK" || echo "23 - git clone aio-node-api failed" | exit 1
 fi
 
 check_step 24
@@ -162,7 +163,7 @@ fi
 check_step 25
 if [ "$?" -eq "0" ]; then
    cd /aio/aiop
-   git clone http://onsac:${GIT_ASKPASS}%40@bitbucket.org/onsac-aio/aio-app.git && set_step 25 "git clone aio-app OK" || echo "25 - git clone aio-app failed" | exit 1
+   git clone http://${TOKEN}@bitbucket.org/onsac-aio/aio-app.git && set_step 25 "git clone aio-app OK" || echo "25 - git clone aio-app failed" | exit 1
 fi
 
 check_step 26
@@ -174,7 +175,7 @@ fi
 check_step 27
 if [ "$?" -eq "0" ]; then
    cd /aio/aiop
-   git clone http://onsac:${GIT_ASKPASS}%40@bitbucket.org/onsac-aio/aio-api.git && set_step 27 "git clone aio-api OK" || echo "27 - git clone aio-api failed" | exit 1
+   git clone http://${TOKEN}@bitbucket.org/onsac-aio/aio-api.git && set_step 27 "git clone aio-api OK" || echo "27 - git clone aio-api failed" | exit 1
 fi
 
 check_step 28
@@ -186,7 +187,7 @@ fi
 check_step 29
 if [ "$?" -eq "0" ]; then
    cd /aio/aiop
-   git clone http://onsac:${GIT_ASKPASS}%40@bitbucket.org/onsac-aio/aio-node-snmp.git && set_step 29 "git clone aio-node-snmp OK" || echo "29 - git clone aio-node-snmp failed" | exit 1
+   git clone http://${TOKEN}@bitbucket.org/onsac-aio/aio-node-snmp.git && set_step 29 "git clone aio-node-snmp OK" || echo "29 - git clone aio-node-snmp failed" | exit 1
 fi
 
 check_step 30

@@ -86,9 +86,14 @@ if [ "$?" -eq "0" ]; then
    nvm use 11 && set_step 12 "set use OK" || echo "12 - set use failed" | exit 1
 fi
 
-check_step 13
+check_step 131
 if [ "$?" -eq "0" ]; then
-   git init | git config —-global credential.helper store && set_step 13 "git config OK" || echo "13 - git config failed" | exit 1
+   git init && set_step 131 "git config OK" || echo "131 - git config failed" | exit 1
+fi
+
+check_step 132
+if [ "$?" -eq "0" ]; then
+   git config —-global credential.helper store && set_step 132 "git config OK" || echo "132 - git config failed" | exit 1
 fi
 
 check_step 14

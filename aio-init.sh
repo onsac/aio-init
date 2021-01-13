@@ -242,25 +242,25 @@ fi
 
 check_step 041
 if [ "$?" -eq "0" ]; then
-   sudo $STARTUP && set_step 041 "set pm2-startup OK" || stop_step 041 "set pm2-startup failed"
+   sudo -s $STARTUP && set_step 041 "set pm2-startup OK" || stop_step 041 "set pm2-startup failed"
 fi
 
 check_step 042
 if [ "$?" -eq "0" ]; then
-   CMD="wget --no-cache -O /etc/security/limits.conf  http://raw.githubusercontent.com/onsac/aio-init/main/limits.conf"
-   sudo "${CMD}" && set_step 042 "set limits OK" || stop_step 042 "set limits failed"
+   CMD1="wget --no-cache -O /etc/security/limits.conf  http://raw.githubusercontent.com/onsac/aio-init/main/limits.conf"
+   sudo -s $CMD1 && set_step 042 "set limits OK" || stop_step 042 "set limits failed"
 fi
 
 check_step 043
 if [ "$?" -eq "0" ]; then
-   CMD="systemctl stop firewalld"
-   sudo "${CMD}" && set_step 043 "stop firewalld OK" || stop_step 043 "stop firewalld failed"
+   CMD2="systemctl stop firewalld"
+   sudo -s $CMD2 && set_step 043 "stop firewalld OK" || stop_step 043 "stop firewalld failed"
 fi
 
 check_step 044
 if [ "$?" -eq "0" ]; then
-   CMD="systemctl disable firewalld"
-   sudo "${CMD}" && set_step 044 "disable firewalld OK" || stop_step 044 "disable firewalld failed"
+   CMD3="systemctl disable firewalld"
+   sudo -s $CMD3 && set_step 044 "disable firewalld OK" || stop_step 044 "disable firewalld failed"
 fi
 
 

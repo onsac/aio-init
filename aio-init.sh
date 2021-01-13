@@ -231,7 +231,7 @@ fi
 
 check_step 37
 if [ "$?" -eq "0" ]; then
-   sudo su -s "${STARTUP}" && set_step 37 "set pm2-startup OK" || echo "37 - set pm2-startup failed"
+   pw2 | sudo -S su -c "${STARTUP}" && set_step 37 "set pm2-startup OK" || echo "37 - set pm2-startup failed"
 fi
 
 

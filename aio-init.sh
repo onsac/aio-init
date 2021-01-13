@@ -242,8 +242,7 @@ fi
 
 check_step 041
 if [ "$?" -eq "0" ]; then
-   echo "${STARTUP}"
-   sudo "${STARTUP}" && set_step 041 "set pm2-startup OK" || stop_step 041 "set pm2-startup failed"
+   sudo -c "${STARTUP}" && set_step 041 "set pm2-startup OK" || stop_step 041 "set pm2-startup failed"
 fi
 
 check_step 042

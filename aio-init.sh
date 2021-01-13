@@ -243,7 +243,7 @@ fi
 check_step 041
 if [ "$?" -eq "0" ]; then
    cmd=( $STARTUP )
-   "${cmd[@]}" && set_step 041 "set pm2-startup OK" || stop_step 041 "set pm2-startup failed"
+   eval $cmd && set_step 041 "set pm2-startup OK" || stop_step 041 "set pm2-startup failed"
 fi
 
 check_step 042

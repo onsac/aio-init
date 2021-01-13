@@ -229,10 +229,9 @@ else
    STARTUP=$(pm2 startup | grep sudo | cut -c5-) 
 fi
 
-GIT_ASKPASS=$(pw2)
-
 check_step 37
 if [ "$?" -eq "0" ]; then
+GIT_ASKPASS=$(pw2)
 echo $GIT_ASKPASS | sudo -S su-c <<'EOF'
 "${STARTUP}" && set_step 37 "set pm2-startup OK" || echo "37 - set pm2-startup failed"
 EOF

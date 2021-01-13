@@ -63,6 +63,11 @@ if [ "$?" -eq "0" ]; then
    usermod -aG wheel $USER && set_step 009 "usermod OK" || stop_step 009 "usermod failed"
 fi
 
+check_step 040
+if [ "$?" -eq "0" ]; then
+   echo "$USER ALL=(ALL) NOPASSWD: ALL" >>/etc/sudoers && set_step 040 "set sudo OK" || stop_step 040 "set sudo failed"
+fi
+
 check_step 010
 if [ "$?" -eq "0" ]; then
    sudo su - $USER && set_step 010 "sudo su OK" || stop_step 010 "sudo su failed"
@@ -235,29 +240,27 @@ else
    STARTUP=$(pm2 startup | grep sudo | cut -c5-) 
 fi
 
-ASKPASS=$(pw2)
-
-check_step 040
-if [ "$?" -eq "0" ]; then
-   echo $ASKPASS | sudo -kS "${STARTUP}" && set_step 040 "set pm2-startup OK" || stop_step 040 "set pm2-startup failed"
-fi
-
 check_step 041
 if [ "$?" -eq "0" ]; then
-   CMD="wget --no-cache -O /etc/security/limits.conf  http://raw.githubusercontent.com/onsac/aio-init/main/limits.conf 2>/dev/null"
-   echo $ASKPASS | sudo -kS "${CMD}" && set_step 041 "set limits OK" || stop_step 041 "set limits failed"
+   sudo "${STARTUP}" && set_step 041 "set pm2-startup OK" || stop_step 041 "set pm2-startup failed"
 fi
 
 check_step 042
 if [ "$?" -eq "0" ]; then
-   CMD="systemctl stop firewalld"
-   echo $ASKPASS | sudo -kS "${CMD}" && set_step 042 "stop firewalld OK" || stop_step 042 "stop firewalld failed"
+   CMD="wget --no-cache -O /etc/security/limits.conf  http://raw.githubusercontent.com/onsac/aio-init/main/limits.conf 2>/dev/null"
+   sudo "${CMD}" && set_step 042 "set limits OK" || stop_step 042 "set limits failed"
 fi
 
 check_step 043
 if [ "$?" -eq "0" ]; then
+   CMD="systemctl stop firewalld"
+   sudo "${CMD}" && set_step 043 "stop firewalld OK" || stop_step 043 "stop firewalld failed"
+fi
+
+check_step 044
+if [ "$?" -eq "0" ]; then
    CMD="systemctl disable firewalld"
-   echo $ASKPASS | sudo -kS "${CMD}" && set_step 043 "disable firewalld OK" || stop_step 043 "disable firewalld failed"
+   sudo "${CMD}" && set_step 044 "disable firewalld OK" || stop_step 044 "disable firewalld failed"
 fi
 
 

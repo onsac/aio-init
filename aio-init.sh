@@ -86,25 +86,25 @@ if [ "$?" -eq "0" ]; then
    nvm use 11 && set_step 12 "set use OK" || echo "12 - set use failed" | exit 1
 fi
 
-check_step 131
+check_step 13
 if [ "$?" -eq "0" ]; then
-   git init && set_step 131 "git config OK" || echo "131 - git config failed" | exit 1
-fi
-
-check_step 132
-if [ "$?" -eq "0" ]; then
-   git config --global credential.helper store && set_step 132 "git config OK" || echo "132 - git config failed" | exit 1
+   git init && set_step 13 "git config OK" || echo "13 - git config failed" | exit 1
 fi
 
 check_step 14
 if [ "$?" -eq "0" ]; then
-   echo "http://onsac@bitbucket.org" > ~/.git-credentials  && set_step 14 "set git config OK" || echo "14 - set git config failed" | exit 1
+   git config --global credential.helper store && set_step 14 "git config OK" || echo "14 - git config failed" | exit 1
 fi
 
-check_step 15
-if [ "$?" -eq "0" ]; then
-   GIT_ASKPASS=$(pw1 | cut -c1-8) && set_step 15 "git config ASK OK" || echo "15 - git config ASK failed" | exit 1
-fi
+#check_step 14
+#if [ "$?" -eq "0" ]; then
+#   echo "http://onsac@bitbucket.org" > ~/.git-credentials  && set_step 14 "set git config OK" || echo "14 - set git config failed" | exit 1
+#fi
+
+#check_step 15
+#if [ "$?" -eq "0" ]; then
+#   GIT_ASKPASS=$(pw1 | cut -c1-8) && set_step 15 "git config ASK OK" || echo "15 - git config ASK failed" | exit 1
+#fi
 
 check_step 16
 if [ "$?" -eq "0" ]; then
@@ -225,6 +225,8 @@ fi
 check_step 36
 if [ "$?" -eq "0" ]; then
    STARTUP=$(pm2 startup | grep sudo | cut -c5-) && set_step 36 "install pm2-startup OK" || echo "36 - install pm2-startup failed" | exit 1
+else 
+   STARTUP=$(pm2 startup | grep sudo | cut -c5-) 
 fi
 
 check_step 37

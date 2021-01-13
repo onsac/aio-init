@@ -53,7 +53,7 @@ check_step()
 {
    seq=$1
    FILE="/tmp/steps.txt"
-   if [ "$seq" = "001" ]; then
+   if [ "$seq" = "001" || "$seq" = "C001" ]; then
       if [ -f "$FILE" ]; then
          if [ "$(grep "$seq -" $FILE)" = "" ]; then
             return $TRUE

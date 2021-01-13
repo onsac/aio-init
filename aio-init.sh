@@ -71,11 +71,11 @@ else
    sudo su - $USER 
 fi
 
+. /tmp/.common.lib
+
 check_step 011
 if [ "$?" -eq "0" ]; then
-   . /tmp/.common.lib && set_step 011 "set common OK" || echo "011 - set common failed"; exit 1
-else
-   . /tmp/.common.lib
+   echo "" && set_step 011 "set common OK" || echo "011 - set common failed"; exit 1
 fi
 
 check_step 012

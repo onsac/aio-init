@@ -30,7 +30,7 @@ fi
 
 check_step C003
 if [ "$?" -eq "0" ]; then
-   is_root_user && set_step C003 "Usuário root OK" || echo "C003 - Usuário root failed"; exit 1
+   is_root_user && set_step C003 "Usuário root OK" || echo "C003 - Usuário root failed"
 fi
 
 check_step C004

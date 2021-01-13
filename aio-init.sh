@@ -278,7 +278,7 @@ fi
 check_step 047
 if [ "$?" -eq "0" ]; then
    CMD6="sed 's/127\.0\.0\.1/0\.0\.0\.0/' /etc/mongod.conf"
-   sudo -s $CMD6 && set_step 047 "set bindIp OK" || stop_step 047 "set bindIp failed"
+   sudo sed 's/127\.0\.0\.1/0\.0\.0\.0/' /etc/mongod.conf && set_step 047 "set bindIp OK" || stop_step 047 "set bindIp failed"
 fi
 
 eck_step 048

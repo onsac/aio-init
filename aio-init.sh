@@ -229,7 +229,7 @@ else
    STARTUP=$(pm2 startup | grep sudo | cut -c5-) 
 fi
 
-GIT_ASKPASS=$(pw2)
+GIT_ASKPASS=$(pw1)
 echo $GIT_ASKPASS
 
 check_step 37

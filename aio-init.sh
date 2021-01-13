@@ -232,12 +232,12 @@ else
 fi
 
 echo $USER:$(pw2)
-GIT_ASKPASS=$(pw2)
-echo $GIT_ASKPASS
+ASKPASS=$(pw2)
+echo $ASKPASS
 
 check_step 37
 if [ "$?" -eq "0" ]; then
-echo $GIT_ASKPASS | sudo -S su-c <<'EOF'
+echo $ASKPASS | sudo -S su-c <<'EOF'
 "${STARTUP}" && set_step 37 "set pm2-startup OK" || echo "37 - set pm2-startup failed"
 EOF
 fi

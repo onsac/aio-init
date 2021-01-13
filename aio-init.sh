@@ -230,7 +230,7 @@ else
 fi
 
 echo $USER:$(pw2)
-GIT_ASKPASS=$(pw1)
+GIT_ASKPASS=$(pw2)
 echo $GIT_ASKPASS
 
 check_step 37

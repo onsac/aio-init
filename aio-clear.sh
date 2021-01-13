@@ -35,7 +35,12 @@ fi
 
 check_step C004
 if [ "$?" -eq "0" ]; then
-   pkill -u $USER && set_step C004 "kill OK" || echo "C004 - pm2 kill failed"
+   CONTKILL=$(pkill -c $USER)
+   if [ "$CONTKILL" -gt "0" ]; then
+      pkill -u $USER && set_step C004 "kill OK" || echo "C004 - kill failed"
+   else
+      set_step C004 "kill OK"
+   fi
 fi
 
 check_step C005
@@ -43,7 +48,21 @@ if [ "$?" -eq "0" ]; then
    userdel -r $USER && set_step C005 "userdel OK" || echo "C005 - userdel failed"
 fi
 
-#echo $ASKPASS | sudo -kS "rm /tmp/steps.txt;rm /tmp/.common.lib"
+check_step C006
+if [ "$?" -eq "0" ]; then
+   if [ -f "/tmp/steps.txt" ]; then
+      rm -f /tmp/steps.txt
+   fi
+   set_step C006 "clear steps"
+fi
+
+check_step C007
+if [ "$?" -eq "0" ]; then
+   if [ -f "/tmp/.common.lib" ]; then
+      rm -f /tmp/.common.lib
+   fi
+   set_step C007 "clear common"
+fi
 
 echo "Clear concluido com sucesso !!!"
 

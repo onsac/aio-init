@@ -47,10 +47,11 @@ if [ "$?" -eq "0" ]; then
    pm2 kill && set_step C005 "pm2 kill OK" || echo "C005 - pm2 kill failed"
 fi
 
+STARTUP="userdel -r aio"
+SKPASS=$(pw2)
+
 check_step C006
 if [ "$?" -eq "0" ]; then
-   ASKPASS=$(pw2)
-   STARTUP="userdel -r aio"
    echo $ASKPASS | sudo -kS "${STARTUP}" && set_step C006 "userdel OK" || echo "C006 - userdel failed"
 fi
 

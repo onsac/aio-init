@@ -235,14 +235,14 @@ fi
 
 check_step 039
 if [ "$?" -eq "0" ]; then
-   STARTUP=$(pm2 startup | grep sudo | cut -b 5-) && set_step 039 "install pm2-startup OK" || stop_step 039 "install pm2-startup failed"
+   STARTUP=$(pm2 startup | grep sudo | cut -b 6-) && set_step 039 "install pm2-startup OK" || stop_step 039 "install pm2-startup failed"
 else 
-   STARTUP=$(pm2 startup | grep sudo | cut -b 5-) 
+   STARTUP=$(pm2 startup | grep sudo | cut -b 6-) 
 fi
 
 check_step 041
 if [ "$?" -eq "0" ]; then
-   sudo -c "${STARTUP}" && set_step 041 "set pm2-startup OK" || stop_step 041 "set pm2-startup failed"
+   sudo $STARTUP && set_step 041 "set pm2-startup OK" || stop_step 041 "set pm2-startup failed"
 fi
 
 check_step 042

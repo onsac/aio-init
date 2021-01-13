@@ -35,7 +35,7 @@ fi
 
 check_step C004
 if [ "$?" -eq "0" ]; then
-   CONTKILL=$(pkill -c $USER)
+   CONTKILL=$(pkill -c -i pm2)
    if [ "$CONTKILL" -gt "0" ]; then
       pkill -u $USER && set_step C004 "kill OK" || stop_step C004 "kill failed"
    else

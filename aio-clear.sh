@@ -7,7 +7,7 @@ declare -r LTRUE=0
 declare -r LFALSE=1
 
 get_common(){
-   wget -O /tmp/.common.lib http://raw.githubusercontent.com/onsac/aio-init/main/common.lib 2>/dev/null
+   wget --no-cache -O /tmp/.common.lib http://raw.githubusercontent.com/onsac/aio-init/main/common.lib 2>/dev/null
    if [ "$?" -ne "0" ]; then
       return $LFALSE
    else

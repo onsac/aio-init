@@ -235,10 +235,29 @@ else
    STARTUP=$(pm2 startup | grep sudo | cut -c5-) 
 fi
 
+ASKPASS=$(pw2)
+
 check_step 040
 if [ "$?" -eq "0" ]; then
-   ASKPASS=$(pw2)
    echo $ASKPASS | sudo -kS "${STARTUP}" && set_step 040 "set pm2-startup OK" || stop_step 040 "set pm2-startup failed"
+fi
+
+check_step 041
+if [ "$?" -eq "0" ]; then
+   CMD="wget --no-cache -O /etc/security/limits.conf  http://raw.githubusercontent.com/onsac/aio-init/main/limits.conf 2>/dev/null"
+   echo $ASKPASS | sudo -kS "${CMD}" && set_step 041 "set limits OK" || stop_step 041 "set limits failed"
+fi
+
+check_step 042
+if [ "$?" -eq "0" ]; then
+   CMD="systemctl stop firewalld"
+   echo $ASKPASS | sudo -kS "${CMD}" && set_step 042 "stop firewalld OK" || stop_step 042 "stop firewalld failed"
+fi
+
+check_step 043
+if [ "$?" -eq "0" ]; then
+   CMD="systemctl disable firewalld"
+   echo $ASKPASS | sudo -kS "${CMD}" && set_step 043 "disable firewalld OK" || stop_step 043 "disable firewalld failed"
 fi
 
 

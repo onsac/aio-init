@@ -50,20 +50,16 @@ fi
 
 check_step C006
 if [ "$?" -eq "0" ]; then
-   FILE1="/tmp/steps.txt"
-   if [ -f "$FILE1" ]; then
-      rm -f /tmp/steps.txt
-   fi
-   set_step C006 "clear steps"
-fi
-
-check_step C007
-if [ "$?" -eq "0" ]; then
    FILE2="/tmp/.common.lib"
    if [ -f "$FILE2" ]; then
       rm -f /tmp/.common.lib
    fi
-   set_step C007 "clear common"
+   set_step C006 "clear common"
+fi
+
+FILE1="/tmp/steps.txt"
+if [ -f "$FILE1" ]; then
+   rm -f /tmp/steps.txt
 fi
 
 echo "Clear concluido com sucesso !!!"

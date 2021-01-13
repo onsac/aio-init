@@ -35,7 +35,7 @@ fi
 
 check_step C004
 if [ "$?" -eq "0" ]; then
-   sudo su - $USER && set_step C004 "sudo su OK" || echo "C004 - sudo su failed"; exit 1
+   sudo su - $USER && set_step C004 "sudo su OK" || echo "C004 - sudo su failed"
 else
    sudo su - $USER
 fi
@@ -44,17 +44,17 @@ fi
 
 check_step C005
 if [ "$?" -eq "0" ]; then
-   pm2 kill && set_step C005 "pm2 kill OK" || echo "C005 - pm2 kill failed"; exit 1
+   pm2 kill && set_step C005 "pm2 kill OK" || echo "C005 - pm2 kill failed"
 fi
 
 ASKPASS=$(pw2)
 
 check_step C006
 if [ "$?" -eq "0" ]; then
-   echo $ASKPASS | sudo -kS "userdel -r aio" && set_step C006 "userdel OK" || echo "C006 - userdel failed"; exit 1
+   echo $ASKPASS | sudo -kS "userdel -r aio" && set_step C006 "userdel OK" || echo "C006 - userdel failed"
 fi
 
-echo $ASKPASS | sudo -kS "rm /tmp/steps.txt;rm /tmp/.common.lib"
+#echo $ASKPASS | sudo -kS "rm /tmp/steps.txt;rm /tmp/.common.lib"
 
 echo "Clear concluido com sucesso !!!"
 

@@ -20,12 +20,12 @@ get_common
 
 check_step C001
 if [ "$?" -eq "0" ]; then
-   echo "" && set_step C001  "get common OK" || echo "C001 - get common failed"; exit 1
+   echo "" && set_step C001  "get common OK" || echo "C001 - get common failed"
 fi
 
 check_step C002
 if [ "$?" -eq "0" ]; then
-   echo "" && set_step C002 "set common OK" || echo "C002 - set common failed"; exit 1
+   echo "" && set_step C002 "set common OK" || echo "C002 - set common failed"
 fi
 
 check_step C003

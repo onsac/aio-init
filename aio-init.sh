@@ -277,13 +277,11 @@ fi
 
 check_step 047
 if [ "$?" -eq "0" ]; then
-   #CMD6="sed 's/127\.0\.0\.1/0\.0\.0\.0/' /etc/mongod.conf"
-   sudo sed -i 's/127.0.0.1/0.0.0.0/' /etc/mongod.conf && set_step 047 "set bindIp OK" || stop_step 047 "set bindIp failed"
+   sudo sed -i -e 's/127.0.0.1/0.0.0.0/' /etc/mongod.conf && set_step 047 "set bindIp OK" || stop_step 047 "set bindIp failed"
 fi
 
 eck_step 048
 if [ "$?" -eq "0" ]; then
-   CMD6="sed 's/\=\-f/\=\-\-quiet\ \-f/' /usr/lib/systemd/system/mongod.service"
-   sudo -s $CMD6 && set_step 048 "set mongod conf OK" || stop_step 048 "set mongod conf failed"
+   sudo sed -i -e 's/=-f/=--quiet -f/' /usr/lib/systemd/system/mongod.service $CMD6 && set_step 048 "set mongod conf OK" || stop_step 048 "set mongod conf failed"
 fi
 

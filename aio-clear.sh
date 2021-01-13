@@ -35,24 +35,12 @@ fi
 
 check_step C004
 if [ "$?" -eq "0" ]; then
-   sudo su - $USER && set_step C004 "sudo su OK" || echo "C004 - sudo su failed"
-else
-   sudo su - $USER
+   pkill -u $USER && set_step C004 "kill OK" || echo "C004 - pm2 kill failed"
 fi
-
-. /tmp/.common.lib
 
 check_step C005
 if [ "$?" -eq "0" ]; then
-   pm2 kill && set_step C005 "pm2 kill OK" || echo "C005 - pm2 kill failed"
-fi
-
-STARTUP="userdel -r aio"
-SKPASS=$(pw2)
-
-check_step C006
-if [ "$?" -eq "0" ]; then
-   echo $ASKPASS | sudo -kS "${STARTUP}" && set_step C006 "userdel OK" || echo "C006 - userdel failed"
+   userdel -r $USER && set_step C005 "userdel OK" || echo "C005 - userdel failed"
 fi
 
 #echo $ASKPASS | sudo -kS "rm /tmp/steps.txt;rm /tmp/.common.lib"

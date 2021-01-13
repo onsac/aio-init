@@ -231,8 +231,8 @@ else
    STARTUP=$(pm2 startup | grep sudo | cut -c5-) 
 fi
 
-echo $USER:$(pw2)
 ASKPASS=$(pw2)
+echo $USER:$ASKPASS
 echo $ASKPASS
 
 check_step 37

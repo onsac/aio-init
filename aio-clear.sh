@@ -15,18 +15,17 @@ get_common(){
    fi
 }
 
+get_common
+. /tmp/.common.lib
+
 check_step C001
 if [ "$?" -eq "0" ]; then
-   get_common && set_step C001  "get common OK" || echo "C001 - get common failed"; exit 1
-else
-   get_common
+   echo "" && set_step C001  "get common OK" || echo "C001 - get common failed"; exit 1
 fi
 
 check_step C002
 if [ "$?" -eq "0" ]; then
-   . /tmp/.common.lib && set_step C002 "set common OK" || echo "C002 - set common failed"; exit 1
-else
-   . /tmp/.common.lib
+   echo "" && set_step C002 "set common OK" || echo "C002 - set common failed"; exit 1
 fi
 
 check_step C003

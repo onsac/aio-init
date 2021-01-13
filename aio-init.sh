@@ -263,4 +263,15 @@ if [ "$?" -eq "0" ]; then
    sudo -s $CMD3 && set_step 044 "disable firewalld OK" || stop_step 044 "disable firewalld failed"
 fi
 
+check_step 045
+if [ "$?" -eq "0" ]; then
+   CMD4="wget --no-cache -O /etc/yum.repos.d/mongodb-org-4.0.repo  http://raw.githubusercontent.com/onsac/aio-init/main/mongodb-org-4.0.repo"
+   sudo -s $CMD4 && set_step 045 "mongodb-org-4.0.repo OK" || stop_step 045 "mongodb-org-4.0.repo failed"
+fi
+
+check_step 046
+if [ "$?" -eq "0" ]; then
+   CMD5="sudo yum install -y mongodb-org"
+   sudo -s $CMD5 && set_step 046 "install mongodb-org OK" || stop_step 046 "install mongodb-org failed"
+fi
 

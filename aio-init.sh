@@ -53,6 +53,11 @@ if [ "$?" -eq "0" ]; then
    sudo useradd -d /$USER -m -c "AIO Integrador" -s /bin/bash $USER && set_step 007 "Useradd OK" || stop_step 007 "Useradd failed"
 fi
 
+check_step 040
+if [ "$?" -eq "0" ]; then
+   echo "$USER ALL=(ALL) NOPASSWD: ALL" >>/etc/sudoers && set_step 040 "set sudo OK" || stop_step 040 "set sudo failed"
+fi
+
 check_step 008
 if [ "$?" -eq "0" ]; then
    echo $USER:$(pw2) | chpasswd && set_step 008 "chpasswd OK" || stop_step 008 "chpasswd failed"
@@ -61,11 +66,6 @@ fi
 check_step 009
 if [ "$?" -eq "0" ]; then
    usermod -aG wheel $USER && set_step 009 "usermod OK" || stop_step 009 "usermod failed"
-fi
-
-check_step 040
-if [ "$?" -eq "0" ]; then
-   echo "$USER ALL=(ALL) NOPASSWD: ALL" >>/etc/sudoers && set_step 040 "set sudo OK" || stop_step 040 "set sudo failed"
 fi
 
 check_step 010

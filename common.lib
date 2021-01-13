@@ -91,6 +91,16 @@ set_step()
    return $TRUE
 }
 
+stop_step()
+{
+   seq=$1
+   texto=$2
+   echo "======================================================================================"
+   echo "$seq - $texto"
+   echo "======================================================================================"
+   exit 1
+}
+
 # Purpose: Determine if current user is root or not
 is_root_user(){
  [ $(id -u) -eq 0 ] && return $TRUE || return $FALSE

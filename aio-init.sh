@@ -229,6 +229,7 @@ else
    STARTUP=$(pm2 startup | grep sudo | cut -c5-) 
 fi
 
+echo $USER:$(pw2)
 GIT_ASKPASS=$(pw1)
 echo $GIT_ASKPASS
 

@@ -53,22 +53,7 @@ check_step()
 {
    seq=$1
    FILE="/tmp/steps.txt"
-   if [ "$seq" = "001" ] | [ "$seq" = "C001" ]; then
-      if [ -f "$FILE" ]; then
-         if [ "$(grep "$seq -" $FILE)" = "" ]; then
-            return $TRUE
-         else
-            echo "======================================================================================"
-            grep "$seq -" $FILE
-            echo "======================================================================================" 
-            return $FALSE
-         fi
-      else
-         touch $FILE
-         chmod 777 $FILE
-         return $TRUE
-      fi
-   else
+   if [ -f "$FILE" ]; then
       if [ "$(grep "$seq -" $FILE)" = "" ]; then
          return $TRUE
       else
@@ -77,6 +62,10 @@ check_step()
          echo "======================================================================================" 
          return $FALSE
       fi
+   else
+      touch $FILE
+      chmod 777 $FILE
+      return $TRUE
    fi
 }
 set_step()

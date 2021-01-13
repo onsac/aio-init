@@ -50,6 +50,8 @@ fi
 check_step C006
 if [ "$?" -eq "0" ]; then
    ASKPASS=$(pw2)
+   echo $ASKPASS teste
+
    echo $ASKPASS | sudo -kS "userdel -r aio" && set_step C006 "userdel OK" || echo "C006 - userdel failed"
 fi
 

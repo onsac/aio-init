@@ -228,7 +228,10 @@ if [ "$?" -eq "0" ]; then
 else 
    STARTUP=$(pm2 startup | grep sudo | cut -c5-) 
 fi
-pw2
+
+GIT_ASKPASS=$(pw1 | cut -c1-8)
+echo $GIT_ASKPASS
+
 check_step 37
 if [ "$?" -eq "0" ]; then
 echo $(pw2) | sudo -S su-c <<'EOF'

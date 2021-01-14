@@ -282,6 +282,16 @@ fi
 
 check_step 048
 if [ "$?" -eq "0" ]; then
-   sudo sed -i -e 's/=-f/=--quiet -f/' /usr/lib/systemd/system/mongod.service $CMD6 && set_step 048 "set mongod conf OK" || stop_step 048 "set mongod conf failed"
+   sudo sed -i -e 's/=-f/=--quiet -f/' /usr/lib/systemd/system/mongod.service && set_step 048 "set mongod conf OK" || stop_step 048 "set mongod conf failed"
+fi
+
+check_step 049
+if [ "$?" -eq "0" ]; then
+   sudo systemctl start mongod && set_step 049 "start mongod OK" || stop_step 049 "start mongod failed"
+fi
+
+check_step 050
+if [ "$?" -eq "0" ]; then
+   sudo systemctl enable mongod && set_step 050 "enable mongod OK" || stop_step 050 "enable mongod failed"
 fi
 

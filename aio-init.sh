@@ -325,3 +325,15 @@ if [ "$?" -eq "0" ]; then
    sudo sed -i -e 's/#security:/#security: \nsecurity: \n  authorization: enabled /' /etc/mongod.conf && set_step 056 "set security OK" || stop_step 056 "set security failed"
 fi
 
+check_step 057
+if [ "$?" -eq "0" ]; then
+   sudo systemctl restart mongod && set_step 057 "restart mongod OK" || stop_step 057 "restart mongod failed"
+fi
+
+check_step 058
+if [ "$?" -eq "0" ]; then
+   PWDB=$(pw2)
+   CMDDB=$(echo -e "use aio \ndb.auth('aiouser', '$PWDB')")
+   sudo mongo <<< """$CMDDB"""  && set_step 058 "test login OK" || stop_step 058 "test login failed"
+fi
+

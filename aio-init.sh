@@ -322,6 +322,6 @@ fi
 
 check_step 056
 if [ "$?" -eq "0" ]; then
-   sudo sed -i -e 's/#security:/#security: \\nsecurity: \\n  authorization: enabled /' /etc/mongod.conf && set_step 056 "set security OK" || stop_step 056 "set security failed"
+   sudo sed -i -e 's/#security:/#security: \nsecurity: \n  authorization: enabled /' /etc/mongod.conf && set_step 056 "set security OK" || stop_step 056 "set security failed"
 fi
 

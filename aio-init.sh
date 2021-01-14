@@ -302,12 +302,12 @@ fi
 
 check_step 052
 if [ "$?" -eq "0" ]; then
-   sudo echo -e "use admin\ndb.createUser({user:'admin',pwd:'$(pw2)',roles:[{role:'userAdminAnyDatabase',db:'admin'}]})" >/tmp/.db.js && set_step 052 "set admin OK" || stop_step 052 "set admin failed"
+   sudo echo -e "use admin \ndb.createUser({user:'admin',pwd:'$(pw2)',roles:[{role:'userAdminAnyDatabase',db:'admin'}]})" >/tmp/.db.js && set_step 052 "set admin OK" || stop_step 052 "set admin failed"
 fi
 
 check_step 053
 if [ "$?" -eq "0" ]; then
-   sudo echo -e "use aio\ndb.createUser({user:'aiouser',pwd:'$(pw2)',roles:[{role:'readWrite',db:'aio'},{role:'userAdmin',db:'admin'},{role:'userAdminAnyDatabase',db:'admin'}]})" >>/tmp/.db.js && set_step 053 "set aiouser OK" || stop_step 053 "set aiouser failed"
+   sudo echo -e "use aio \ndb.createUser({user:'aiouser',pwd:'$(pw2)',roles:[{role:'readWrite',db:'aio'},{role:'userAdmin',db:'admin'},{role:'userAdminAnyDatabase',db:'admin'}]})" >>/tmp/.db.js && set_step 053 "set aiouser OK" || stop_step 053 "set aiouser failed"
 fi
 
 check_step 054

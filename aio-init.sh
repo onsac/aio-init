@@ -337,3 +337,49 @@ if [ "$?" -eq "0" ]; then
    sudo mongo <<< """$CMDDB"""  && set_step 058 "test login OK" || stop_step 058 "test login failed"
 fi
 
+check_step 059
+if [ "$?" -eq "0" ]; then
+   cd /aio/aiop/aio-setup
+   node setupUsers admin $(pw2) true n && set_step 059 "cread admin user OK" || stop_step 059 "cread admin user failed"
+fi
+
+check_step 060
+if [ "$?" -eq "0" ]; then
+   cd /aio/aiop/aio-setup
+   node setupUsers aiointegrador $(pw2) true s && set_step 060 "cread aioapi user OK" || stop_step 060 "cread aioapi user failed"
+fi
+
+check_step 061
+if [ "$?" -eq "0" ]; then
+   sed -i -e 's/aio.onsac.com/$(hostname)/g' /aio/aiop/aio-setup/.aio/aio-prd-config-geral.yml && set_step 061 "set hostname OK" || stop_step 061 "set hostname failed"
+fi
+
+check_step 062
+if [ "$?" -eq "0" ]; then
+   cd /aio/aiop/aio-setup
+   PWAIO=$(pw2)
+   sed -i -e 's/<hash senha ansible>/$(node set_hash.js $PWAIO)/g' /aio/aiop/aio-setup/.aio/aio-prd-config-geral.yml && set_step 062 "set hash ansible OK" || stop_step 062 "set hash ansible failed"
+fi
+
+check_step 063
+if [ "$?" -eq "0" ]; then
+   cd /aio/aiop/aio-setup
+   PWAIO=$(pw2)
+   sed -i -e 's/<hash senha control-m>/$(node set_hash.js $PWAIO)/g' /aio/aiop/aio-setup/.aio/aio-prd-config-geral.yml && set_step 063 "set hash control-m OK" || stop_step 063 "set hash control-m failed"
+fi
+
+check_step 064
+if [ "$?" -eq "0" ]; then
+   cd /aio/aiop/aio-setup
+   PWAIO=$(pw2)
+   sed -i -e 's/<hash senha integrador>/$(node set_hash.js $PWAIO)/g' /aio/aiop/aio-setup/.aio/aio-prd-config-geral.yml && set_step 064 "set hash aio OK" || stop_step 064 "set hash aio failed"
+fi
+
+check_step 065
+if [ "$?" -eq "0" ]; then
+   cd /aio/aiop/aio-setup
+   node aio-start.js && set_step 065 "start aio modules OK" || stop_step 065 "start aio modules failed"
+fi
+
+echo "Instalação concluida com sucesso !!!"
+

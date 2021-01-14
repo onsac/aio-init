@@ -202,7 +202,7 @@ fi
 
 check_step 033
 if [ "$?" -eq "0" ]; then
-   cd /aio/aiop/aio-api
+   cd /aio/aiop/aio-node-snmp
    npm --loglevel=error audit fix --force; npm --loglevel=error install && set_step 033 "npm install aio-node-snmp OK" || stop_step 033 "npm install aio-node-snmp failed"
 fi
 

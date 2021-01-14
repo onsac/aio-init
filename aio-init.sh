@@ -287,11 +287,32 @@ fi
 
 check_step 049
 if [ "$?" -eq "0" ]; then
-   sudo systemctl start mongod && set_step 049 "start mongod OK" || stop_step 049 "start mongod failed"
+   sudo systemctl daemon-reload && set_step 049 "daemon-reload OK" || stop_step 049 "daemon-reload failed"
 fi
 
 check_step 050
 if [ "$?" -eq "0" ]; then
-   sudo systemctl enable mongod && set_step 050 "enable mongod OK" || stop_step 050 "enable mongod failed"
+   sudo systemctl start mongod && set_step 050 "start mongod OK" || stop_step 050 "start mongod failed"
 fi
+
+check_step 051
+if [ "$?" -eq "0" ]; then
+   sudo systemctl enable mongod && set_step 051 "enable mongod OK" || stop_step 051 "enable mongod failed"
+fi
+
+check_step 052
+if [ "$?" -eq "0" ]; then
+   sudo echo "use admin\ndb.createUser({user:'admin',pwd:'$(pw2)',roles:[{role:'userAdminAnyDatabase',db:'admin'}]})" >/tmp/.db.js && set_step 052 "set admin OK" || stop_step 052 "set admin failed"
+fi
+
+check_step 053
+if [ "$?" -eq "0" ]; then
+   sudo echo "use aio\ndb.createUser({user:'aiouser',pwd:'$(pw2)',roles:[{role:'readWrite',db:'aio'},{role:'userAdmin',db:'admin'},{role:'userAdminAnyDatabase',db:'admin'}]})" >>/tmp/.db.js && set_step 053 "set aiouser OK" || stop_step 053 "set aiouser failed"
+fi
+
+check_step 054
+if [ "$?" -eq "0" ]; then
+   sudo mongo < /tmp/.db.js && set_step 054 "create admin users OK" || stop_step 054 "create admin users failed"
+fi
+
 

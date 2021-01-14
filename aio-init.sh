@@ -315,4 +315,13 @@ if [ "$?" -eq "0" ]; then
    sudo mongo < /tmp/.db.js && set_step 054 "create admin users OK" || stop_step 054 "create admin users failed"
 fi
 
+check_step 055
+if [ "$?" -eq "0" ]; then
+   sudo rm -f /tmp/.db.js && set_step 055 "clear temp OK" || stop_step 055 "clear temp failed"
+fi
+
+check_step 056
+if [ "$?" -eq "0" ]; then
+   sudo sed -i -e 's/#security:/#security: \\nsecurity: \\n  authorization: enabled /' /etc/mongod.conf && set_step 056 "set security OK" || stop_step 056 "set security failed"
+fi
 

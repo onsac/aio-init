@@ -387,5 +387,11 @@ if [ "$?" -eq "0" ]; then
     pm2 save --force && set_step 066 "pm2 save OK" || stop_step 066 "pm2 save failed"
 fi
 
+check_step 067
+if [ "$?" -eq "0" ]; then
+   cd /aio/aiop
+    pm2 list && set_step 067 "aio integrador status OK" || stop_step 067 "aio integrador status failed"
+fi
+
 echo "Instalação concluida com sucesso !!!"
 

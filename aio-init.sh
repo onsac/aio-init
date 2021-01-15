@@ -56,6 +56,7 @@ fi
 check_step 040
 if [ "$?" -eq "0" ]; then
    echo "$USER ALL=(ALL) NOPASSWD: ALL" >>/etc/sudoers && set_step 040 "set sudo OK" || stop_step 040 "set sudo failed"
+   echo "NODE_NO_WARNINGS=1" >>/etc/environment
 fi
 
 check_step 008

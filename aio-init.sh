@@ -40,7 +40,7 @@ fi
 
 check_step 005
 if [ "$?" -eq "0" ]; then
-   yum install -y git 2>/dev/null && set_step 005 "Install git OK" || stop_step 005 "Install git failed"
+   yum install -y git python36 2>/dev/null && set_step 005 "Install git OK" || stop_step 005 "Install git failed"
 fi
 
 check_step 006

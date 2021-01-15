@@ -359,25 +359,25 @@ fi
 check_step 062
 if [ "$?" -eq "0" ]; then
    cd /aio/aiop/aio-setup
-   PWAIO=$(pw2)
-   HASH=$(node set_hash.js $PWAIO)
-   sed -i -e "s/hashansible/$HASH/g" /aio/aiop/aio-setup/.aio/aio-prd-config-geral.yml && set_step 062 "set hash ansible OK" || stop_step 062 "set hash ansible failed"
+   PWAIO1=$(pw2)
+   HASH1=$(node set_hash.js $PWAIO1)
+   sed -i -e "s/hashansible/$HASH1/g" /aio/aiop/aio-setup/.aio/aio-prd-config-geral.yml && set_step 062 "set hash ansible OK" || stop_step 062 "set hash ansible failed"
 fi
 
 check_step 063
 if [ "$?" -eq "0" ]; then
    cd /aio/aiop/aio-setup
-   PWAIO=$(pw2)
-   HASH=$(node set_hash.js $PWAIO)
-   sed -i -e "s/hashcontrolm/$HASH/g" /aio/aiop/aio-setup/.aio/aio-prd-config-geral.yml && set_step 063 "set hash control-m OK" || stop_step 063 "set hash control-m failed"
+   PWAIO2=$(pw2)
+   HASH2=$(node set_hash.js $PWAIO2)
+   sed -i -e "s/hashcontrolm/$HASH2/g" /aio/aiop/aio-setup/.aio/aio-prd-config-geral.yml && set_step 063 "set hash control-m OK" || stop_step 063 "set hash control-m failed"
 fi
 
 check_step 064
 if [ "$?" -eq "0" ]; then
    cd /aio/aiop/aio-setup
-   PWAIO=$(pw2)
-   HASH=$(node set_hash.js $PWAIO)
-   sed -i -e "s/hashintegrador/$HASH/g" /aio/aiop/aio-setup/.aio/aio-prd-config-geral.yml && set_step 064 "set hash aio OK" || stop_step 064 "set hash aio failed"
+   PWAIO3=$(pw2)
+   HASH3=$(node set_hash.js $PWAIO3)
+   sed -i -e "s/hashintegrador/$HASH3/g" /aio/aiop/aio-setup/.aio/aio-prd-config-geral.yml && set_step 064 "set hash aio OK" || stop_step 064 "set hash aio failed"
 fi
 
 check_step 065

@@ -381,5 +381,11 @@ if [ "$?" -eq "0" ]; then
    node aio-start.js && set_step 065 "start aio modules OK" || stop_step 065 "start aio modules failed"
 fi
 
+check_step 066
+if [ "$?" -eq "0" ]; then
+   cd /aio/aiop
+    pm2 save --force && set_step 066 "pm2 save OK" || stop_step 066 "pm2 save failed"
+fi
+
 echo "Instalação concluida com sucesso !!!"
 

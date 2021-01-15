@@ -50,11 +50,16 @@ fi
 
 check_step C006
 if [ "$?" -eq "0" ]; then
+   yum remove mongodb-org git && set_step C006 "remove Packages OK" || stop_step C006 "remove Packages failed"
+fi
+
+check_step C007
+if [ "$?" -eq "0" ]; then
    FILE2="/tmp/.common.lib"
    if [ -f "$FILE2" ]; then
       rm -f /tmp/.common.lib
    fi
-   set_step C006 "clear common"
+   set_step C007 "clear common"
 fi
 
 FILE1="/tmp/steps.txt"

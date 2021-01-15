@@ -50,7 +50,7 @@ fi
 
 check_step C006
 if [ "$?" -eq "0" ]; then
-   yum remove mongodb-org git && set_step C006 "remove Packages OK" || stop_step C006 "remove Packages failed"
+   yum remove -y mongodb-org git && set_step C006 "remove Packages OK" || stop_step C006 "remove Packages failed"
 fi
 
 check_step C007

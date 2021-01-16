@@ -363,7 +363,12 @@ if [ "$?" -eq "0" ]; then
    PWAIO1=$(pw2)
    HASH1=$(node set_hash.js $PWAIO1)
    sleep 5
-   sed -i -e "s/hashansible/$HASH1/g" /aio/aiop/aio-setup/.aio/aio-prd-config-geral.yml && set_step 062 "set hash ansible OK" || stop_step 062 "set hash ansible failed"  
+   sed -i -e "s/hashansible/$HASH1/g" /aio/aiop/aio-setup/.aio/aio-prd-config-geral.yml
+   if [ "$?" -eq "0" ]; then
+      set_step 062 "set hash ansible OK"
+   else
+      stop_step 062 "set hash ansible failed"
+   fi  
 fi
 
 check_step 063

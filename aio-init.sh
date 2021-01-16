@@ -350,56 +350,6 @@ if [ "$?" -eq "0" ]; then
    node setupUsers aiointegrador $(pw2) true s && set_step 060 "cread aioapi user OK" || stop_step 060 "cread aioapi user failed"
 fi
 
-check_step 061
-if [ "$?" -eq "0" ]; then
-   HOST=$(hostname)
-
-   sed -i -e "s/aio.onsac.com/$HOST/g" /aio/aiop/aio-setup/.aio/aio-prd-config-geral.yml && set_step 061 "set hostname OK" || stop_step 061 "set hostname failed"
-fi
-
-check_step 062
-if [ "$?" -eq "0" ]; then
-   cd /aio/aiop/aio-setup
-   PWAIO1=$(pw2)
-   HASH1=$(node set_hash.js $PWAIO1)
-   sleep 5
-   sed -i -e "s/hashansible/$HASH1/g" /aio/aiop/aio-setup/.aio/aio-prd-config-geral.yml
-   if [ "$?" -eq "0" ]; then
-      set_step 062 "set hash ansible OK"
-   else
-      stop_step 062 "set hash ansible failed"
-   fi  
-fi
-
-check_step 063
-if [ "$?" -eq "0" ]; then
-   cd /aio/aiop/aio-setup
-   PWAIO2=$(pw2)
-   HASH2=$(node set_hash.js $PWAIO2)
-   sleep 5
-   sed -i -e "s/hashcontrolm/$HASH2/g" /aio/aiop/aio-setup/.aio/aio-prd-config-geral.yml
-   if [ "$?" -eq "0" ]; then
-      set_step 063 "set hash control-m OK"
-   else 
-      stop_step 063 "set hash control-m failed" 
-   fi
-fi
-
-check_step 064
-if [ "$?" -eq "0" ]; then
-   cd /aio/aiop/aio-setup
-   PWAIO3=$(pw2)
-   HASH3=$(node set_hash.js $PWAIO3)
-   sleep 5
-   sed -i -e "s/hashintegrador/$HASH3/g" /aio/aiop/aio-setup/.aio/aio-prd-config-geral.yml
-   if [ "$?" -eq "0" ]; then
-      set_step 064 "set hash aio OK"
-   else
-      stop_step 064 "set hash aio failed"
-   fi 
-   sleep 5
-fi
-
 check_step 065
 if [ "$?" -eq "0" ]; then
    cd /aio/aiop/aio-setup

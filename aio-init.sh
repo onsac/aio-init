@@ -354,7 +354,7 @@ check_step 061
 if [ "$?" -eq "0" ]; then
    HOST=$(hostname)
 
-   sed -i -e "s/aio.onsac.com/$VAR1/g" /aio/aiop/aio-setup/.aio/aio-prd-config-geral.yml && set_step 061 "set hostname OK" || stop_step 061 "set hostname failed"
+   sed -i -e "s/aio.onsac.com/$HOST/g" /aio/aiop/aio-setup/.aio/aio-prd-config-geral.yml && set_step 061 "set hostname OK" || stop_step 061 "set hostname failed"
 fi
 
 check_step 062

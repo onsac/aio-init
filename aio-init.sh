@@ -377,7 +377,12 @@ if [ "$?" -eq "0" ]; then
    PWAIO2=$(pw2)
    HASH2=$(node set_hash.js $PWAIO2)
    sleep 5
-   sed -i -e "s/hashcontrolm/$HASH2/g" /aio/aiop/aio-setup/.aio/aio-prd-config-geral.yml && set_step 063 "set hash control-m OK" || stop_step 063 "set hash control-m failed" 
+   sed -i -e "s/hashcontrolm/$HASH2/g" /aio/aiop/aio-setup/.aio/aio-prd-config-geral.yml
+   if [ "$?" -eq "0" ]; then
+      set_step 063 "set hash control-m OK"
+   else 
+      stop_step 063 "set hash control-m failed" 
+   fi
 fi
 
 check_step 064
@@ -386,7 +391,12 @@ if [ "$?" -eq "0" ]; then
    PWAIO3=$(pw2)
    HASH3=$(node set_hash.js $PWAIO3)
    sleep 5
-   sed -i -e "s/hashintegrador/$HASH3/g" /aio/aiop/aio-setup/.aio/aio-prd-config-geral.yml && set_step 064 "set hash aio OK" || stop_step 064 "set hash aio failed" 
+   sed -i -e "s/hashintegrador/$HASH3/g" /aio/aiop/aio-setup/.aio/aio-prd-config-geral.yml
+   if [ "$?" -eq "0" ]; then
+      set_step 064 "set hash aio OK"
+   else
+      stop_step 064 "set hash aio failed"
+   fi 
    sleep 5
 fi
 

@@ -60,43 +60,11 @@ fi
 
 check_step C008
 if [ "$?" -eq "0" ]; then
-   FILE3="/etc/yum.repos.d/mongodb-org-4.0.repo"
-   if [ -f "$FILE3" ]; then
-      rm -f /etc/yum.repos.d/mongodb-org-4.0.repo && set_step C008 "remove Packages 1 OK" || stop_step C008 "remove Packages failed"
-   fi
-fi
-
-check_step C009
-if [ "$?" -eq "0" ]; then
-   FILE4="/etc/mongod.conf"
-   if [ -f "$FILE4" ]; then
-      rm -f /etc/mongod.conf && set_step C009 "remove Packages OK" || stop_step C009 "remove Packages 2 failed"
-   fi
-fi
-
-check_step C010
-if [ "$?" -eq "0" ]; then
-   FILE6="/var/lib/mongo"
-   if [ -d "$FILE6" ]; then
-      rm -rf /var/lib/mongo && set_step C010 "remove data OK" || stop_step C010 "remove data 3 failed"
-   fi
-fi
-
-check_step C011
-if [ "$?" -eq "0" ]; then
-   FILE5="/usr/lib/systemd/system/mongod.service"
-   if [ -f "$FILE5" ]; then
-      rm -f /usr/lib/systemd/system/mongod.service && set_step C011 "remove Packages OK" || stop_step C011 "remove Packages 3 failed"
-   fi
-fi
-
-check_step C012
-if [ "$?" -eq "0" ]; then
    FILE2="/tmp/.common.lib"
    if [ -f "$FILE2" ]; then
       rm -f /tmp/.common.lib
    fi
-   set_step C012 "clear common"
+   set_step C008 "clear common"
 fi
 
 FILE1="/tmp/steps.txt"

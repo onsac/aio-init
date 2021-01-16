@@ -45,7 +45,7 @@ fi
 
 check_step C005
 if [ "$?" -eq "0" ]; then
-   userdel -r $USER && set_step C005 "userdel OK" || stop_step C005 "userdel failed"
+   userdel -f $USER && set_step C005 "userdel OK" || stop_step C005 "userdel failed"
 fi
 
 check_step C006

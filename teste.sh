@@ -15,7 +15,7 @@ get_common(){
 
 get_common && echo "0.1 - get common OK" || echo "0.1 - get common failed" | exit 1
 
-. /tmp/.common.lib && echo "0.2 - set common OK" || echo "0.2 - set common failed" | exit 1
+. common.lib && echo "0.2 - set common OK" || echo "0.2 - set common failed" | exit 1
 
 echo "print line"
 print_line

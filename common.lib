@@ -98,9 +98,10 @@ is_root_user(){
 print_line()
 {
    LINE1=""
-   for number in {1..$COLUMNS}
+   COL=$COLUMNS
+   for number in $(echo "{1..$COL}")
    do
-      LINE1=$LINE1"="
+      LINE1=${LINE1}=
    done
    echo "$LINE1"
 }

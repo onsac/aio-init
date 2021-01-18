@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "======================================================================================"
-echo "AIO INTEGRADOR 2.0 - Setup SO"
+echo "AIO INTEGRADOR 2.0 - SETUP"
 echo "======================================================================================"
 
 declare -r LTRUE=0
@@ -53,198 +53,196 @@ if [ "$?" -eq "0" ]; then
    sudo useradd -d /$USER -m -c "AIO Integrador" -s /bin/bash $USER && set_step 007 "Useradd OK" || stop_step 007 "Useradd failed"
 fi
 
-check_step 040
-if [ "$?" -eq "0" ]; then
-   echo "$USER ALL=(ALL) NOPASSWD: ALL" >>/etc/sudoers && set_step 040 "set sudo OK" || stop_step 040 "set sudo failed"
-   echo "NODE_NO_WARNINGS=1" >>/etc/environment
-fi
-
 check_step 008
 if [ "$?" -eq "0" ]; then
-   echo $USER:$(pw2) | chpasswd && set_step 008 "chpasswd OK" || stop_step 008 "chpasswd failed"
+   echo "$USER ALL=(ALL) NOPASSWD: ALL" >>/etc/sudoers && set_step 008 "set sudo OK" || stop_step 008 "set sudo failed"
+   echo "NODE_NO_WARNINGS=1" >>/etc/environment
 fi
 
 check_step 009
 if [ "$?" -eq "0" ]; then
-   usermod -aG wheel $USER && set_step 009 "usermod OK" || stop_step 009 "usermod failed"
+   echo $USER:$(pw2) | chpasswd && set_step 009 "chpasswd OK" || stop_step 009 "chpasswd failed"
 fi
 
 check_step 010
 if [ "$?" -eq "0" ]; then
-   sudo su - $USER && set_step 010 "sudo su OK" || stop_step 010 "sudo su failed"
+   usermod -aG wheel $USER && set_step 010 "usermod OK" || stop_step 010 "usermod failed"
+fi
+
+check_step 011
+if [ "$?" -eq "0" ]; then
+   sudo su - $USER && set_step 011 "sudo su OK" || stop_step 011 "sudo su failed"
 else
    sudo su - $USER 
 fi
 
 . /tmp/.common.lib
 
-check_step 011
-if [ "$?" -eq "0" ]; then
-   echo "" && set_step 011 "set common OK" || stop_step 011 "set common failed"
-fi
-
 check_step 012
 if [ "$?" -eq "0" ]; then
-   wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash && set_step 012 "install nvm OK" || stop_step 012 "install nvm failed"
+   echo "" && set_step 012 "set common OK" || stop_step 012 "set common failed"
 fi
 
 check_step 013
 if [ "$?" -eq "0" ]; then
-   source ~/.bash_profile && set_step 013 "set nvm OK" || stop_step 013 "set nvm failed"
+   wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash && set_step 013 "install nvm OK" || stop_step 013 "install nvm failed"
 fi
 
 check_step 014
 if [ "$?" -eq "0" ]; then
-   nvm install 11 2>/dev/null && set_step 014 "install nodejs OK" || stop_step 014 "install nodejs failed"
+   source ~/.bash_profile && set_step 014 "set nvm OK" || stop_step 014 "set nvm failed"
 fi
 
 check_step 015
 if [ "$?" -eq "0" ]; then
-   nvm alias default 11 2>/dev/null && set_step 015 "set alias OK" || stop_step 015 "set alias failed"
+   nvm install 11 2>/dev/null && set_step 015 "install nodejs OK" || stop_step 015 "install nodejs failed"
 fi
 
 check_step 016
 if [ "$?" -eq "0" ]; then
-   nvm use 11 && set_step 016 "set use OK" || stop_step 016 "set use failed"
+   nvm alias default 11 2>/dev/null && set_step 016 "set alias OK" || stop_step 016 "set alias failed"
 fi
 
 check_step 017
 if [ "$?" -eq "0" ]; then
-   git init && set_step 017 "git config OK" || stop_step 017 "git config failed"
+   nvm use 11 && set_step 017 "set use OK" || stop_step 017 "set use failed"
 fi
 
 check_step 018
 if [ "$?" -eq "0" ]; then
-   git config --global credential.helper store && set_step 018 "git config OK" || stop_step 018 "git config failed"
+   git init && set_step 018 "git config OK" || stop_step 018 "git config failed"
 fi
 
 check_step 019
 if [ "$?" -eq "0" ]; then
-   mkdir /aio/aiop && set_step 019 "aiop OK" || stop_step 019 "aiop failed"
+   git config --global credential.helper store && set_step 019 "git config OK" || stop_step 019 "git config failed"
 fi
 
 check_step 020
 if [ "$?" -eq "0" ]; then
-   cd /aio/aiop
-   git clone http://${TOKEN}@bitbucket.org/onsac-aio/aio-setup.git && set_step 020 "git clone aio-setup OK" || stop_step 020 "git clone aio-setup failed"
+   mkdir /aio/aiop && set_step 020 "aiop OK" || stop_step 020 "aiop failed"
 fi
 
 check_step 021
 if [ "$?" -eq "0" ]; then
-   cd /aio/aiop/aio-setup
-   npm --loglevel=error audit fix --force; npm --loglevel=error install && set_step 021 "npm install aio-setup OK" || stop_step 021 "npm install aio-setup failed"
+   cd /aio/aiop
+   git clone http://${TOKEN}@bitbucket.org/onsac-aio/aio-setup.git && set_step 021 "git clone aio-setup OK" || stop_step 021 "git clone aio-setup failed"
 fi
 
 check_step 022
 if [ "$?" -eq "0" ]; then
-   cd /aio/aiop
-   git clone http://${TOKEN}@bitbucket.org/onsac-aio/aio-ansible.git && set_step 022 "git clone aio-ansible OK" || stop_step 022 "git clone aio-ansible failed"
+   cd /aio/aiop/aio-setup
+   npm --loglevel=error audit fix --force; npm --loglevel=error install && set_step 022 "npm install aio-setup OK" || stop_step 022 "npm install aio-setup failed"
 fi
 
 check_step 023
 if [ "$?" -eq "0" ]; then
-   cd /aio/aiop/aio-ansible
-   npm --loglevel=error audit fix --force; npm --loglevel=error install && set_step 023 "npm install aio-ansible OK" || stop_step 023 "npm install aio-ansible failed"
+   cd /aio/aiop
+   git clone http://${TOKEN}@bitbucket.org/onsac-aio/aio-ansible.git && set_step 023 "git clone aio-ansible OK" || stop_step 023 "git clone aio-ansible failed"
 fi
 
 check_step 024
 if [ "$?" -eq "0" ]; then
-   cd /aio/aiop
-   git clone http://${TOKEN}@bitbucket.org/onsac-aio/aio-node-logs.git && set_step 024 "git clone aio-node-logs OK" || stop_step 024 "git clone aio-node-logs failed"
+   cd /aio/aiop/aio-ansible
+   npm --loglevel=error audit fix --force; npm --loglevel=error install && set_step 024 "npm install aio-ansible OK" || stop_step 024 "npm install aio-ansible failed"
 fi
 
 check_step 025
 if [ "$?" -eq "0" ]; then
-   cd /aio/aiop/aio-node-logs
-   npm --loglevel=error audit fix --force; npm --loglevel=error install && set_step 025 "npm install aio-node-logs OK" || stop_step 025 "npm install aio-node-logs failed"
+   cd /aio/aiop
+   git clone http://${TOKEN}@bitbucket.org/onsac-aio/aio-node-logs.git && set_step 025 "git clone aio-node-logs OK" || stop_step 025 "git clone aio-node-logs failed"
 fi
 
 check_step 026
 if [ "$?" -eq "0" ]; then
-   cd /aio/aiop
-   git clone http://${TOKEN}@bitbucket.org/onsac-aio/aio-node-api.git && set_step 026 "git clone aio-node-api OK" || stop_step 026 "git clone aio-node-api failed"
+   cd /aio/aiop/aio-node-logs
+   npm --loglevel=error audit fix --force; npm --loglevel=error install && set_step 026 "npm install aio-node-logs OK" || stop_step 026 "npm install aio-node-logs failed"
 fi
 
 check_step 027
 if [ "$?" -eq "0" ]; then
-   cd /aio/aiop/aio-node-api
-   npm --loglevel=error audit fix --force; npm --loglevel=error install && set_step 027 "npm install aio-node-api OK" || stop_step 027 "npm install aio-node-api failed"
+   cd /aio/aiop
+   git clone http://${TOKEN}@bitbucket.org/onsac-aio/aio-node-api.git && set_step 027 "git clone aio-node-api OK" || stop_step 027 "git clone aio-node-api failed"
 fi
 
 check_step 028
 if [ "$?" -eq "0" ]; then
-   cd /aio/aiop
-   git clone http://${TOKEN}@bitbucket.org/onsac-aio/aio-app.git && set_step 028 "git clone aio-app OK" || stop_step 028 "git clone aio-app failed"
+   cd /aio/aiop/aio-node-api
+   npm --loglevel=error audit fix --force; npm --loglevel=error install && set_step 028 "npm install aio-node-api OK" || stop_step 028 "npm install aio-node-api failed"
 fi
 
 check_step 029
 if [ "$?" -eq "0" ]; then
-   cd /aio/aiop/aio-app
-   npm --loglevel=error audit fix --force; npm --loglevel=error install && set_step 029 "npm install aio-app OK" || stop_step 029 "npm install aio-app failed"
+   cd /aio/aiop
+   git clone http://${TOKEN}@bitbucket.org/onsac-aio/aio-app.git && set_step 029 "git clone aio-app OK" || stop_step 029 "git clone aio-app failed"
 fi
 
 check_step 030
 if [ "$?" -eq "0" ]; then
-   cd /aio/aiop
-   git clone http://${TOKEN}@bitbucket.org/onsac-aio/aio-api.git && set_step 030 "git clone aio-api OK" || stop_step 030 "git clone aio-api failed"
+   cd /aio/aiop/aio-app
+   npm --loglevel=error audit fix --force; npm --loglevel=error install && set_step 030 "npm install aio-app OK" || stop_step 030 "npm install aio-app failed"
 fi
 
 check_step 031
 if [ "$?" -eq "0" ]; then
-   cd /aio/aiop/aio-api
-   npm --loglevel=error audit fix --force; npm --loglevel=error install && set_step 031 "npm install aio-api OK" || stop_step 031 "npm install aio-api failed"
+   cd /aio/aiop
+   git clone http://${TOKEN}@bitbucket.org/onsac-aio/aio-api.git && set_step 031 "git clone aio-api OK" || stop_step 031 "git clone aio-api failed"
 fi
 
 check_step 032
 if [ "$?" -eq "0" ]; then
-   cd /aio/aiop
-   git clone http://${TOKEN}@bitbucket.org/onsac-aio/aio-node-snmp.git && set_step 032 "git clone aio-node-snmp OK" || stop_step 032 "git clone aio-node-snmp failed"
+   cd /aio/aiop/aio-api
+   npm --loglevel=error audit fix --force; npm --loglevel=error install && set_step 032 "npm install aio-api OK" || stop_step 032 "npm install aio-api failed"
 fi
 
 check_step 033
 if [ "$?" -eq "0" ]; then
-   cd /aio/aiop/aio-node-snmp
-   npm --loglevel=error audit fix --force; npm --loglevel=error install && set_step 033 "npm install aio-node-snmp OK" || stop_step 033 "npm install aio-node-snmp failed"
+   cd /aio/aiop
+   git clone http://${TOKEN}@bitbucket.org/onsac-aio/aio-node-snmp.git && set_step 033 "git clone aio-node-snmp OK" || stop_step 033 "git clone aio-node-snmp failed"
 fi
 
 check_step 034
 if [ "$?" -eq "0" ]; then
-   cd /aio/aiop
-   ln -s /aio/aiop/aio-setup/.aio/aio-prd-config-geral.yml .production-aio-config-geral.yml && set_step 034 "ln geral OK" || stop_step 034 "ln geral failed"
+   cd /aio/aiop/aio-node-snmp
+   npm --loglevel=error audit fix --force; npm --loglevel=error install && set_step 034 "npm install aio-node-snmp OK" || stop_step 034 "npm install aio-node-snmp failed"
 fi
 
 check_step 035
 if [ "$?" -eq "0" ]; then
    cd /aio/aiop
-   ln -s /aio/aiop/aio-setup/.aio/aio-prd-config-regra.yml .production-aio-config-regra.yml && set_step 035 "ln regra OK" || stop_step 035 "ln regra failed"
+   ln -s /aio/aiop/aio-setup/.aio/aio-prd-config-geral.yml .production-aio-config-geral.yml && set_step 035 "ln geral OK" || stop_step 035 "ln geral failed"
 fi
 
 check_step 036
 if [ "$?" -eq "0" ]; then
-   npm install -g pm2 2>/dev/null && set_step 036 "install pm2 OK" || stop_step 036 "install pm2 failed"
+   cd /aio/aiop
+   ln -s /aio/aiop/aio-setup/.aio/aio-prd-config-regra.yml .production-aio-config-regra.yml && set_step 036 "ln regra OK" || stop_step 036 "ln regra failed"
 fi
 
 check_step 037
 if [ "$?" -eq "0" ]; then
-   pm2 install pm2-logrotate 2>/dev/null && set_step 037 "install pm2-logrotate OK" || stop_step 037 "install pm2-logrotate failed"
+   npm install -g pm2 2>/dev/null && set_step 037 "install pm2 OK" || stop_step 037 "install pm2 failed"
 fi
 
 check_step 038
 if [ "$?" -eq "0" ]; then
-   pm2 link svnfgywh46k3e51 dlrucnwgh2w7bzs 2>/dev/null && set_step 038 "install pm2-link OK" || stop_step 038 "install pm2-link failed"
+   pm2 install pm2-logrotate 2>/dev/null && set_step 038 "install pm2-logrotate OK" || stop_step 038 "install pm2-logrotate failed"
 fi
 
 check_step 039
 if [ "$?" -eq "0" ]; then
-   STARTUP=$(pm2 startup | grep sudo | cut -b 6-) && set_step 039 "install pm2-startup OK" || stop_step 039 "install pm2-startup failed"
-else 
-   STARTUP=$(pm2 startup | grep sudo | cut -b 6-) 
+   pm2 link svnfgywh46k3e51 dlrucnwgh2w7bzs 2>/dev/null && set_step 039 "install pm2-link OK" || stop_step 039 "install pm2-link failed"
 fi
 
-#check_step 041
-#if [ "$?" -eq "0" ]; then
-#   sudo -s $STARTUP && set_step 041 "set pm2-startup OK" || stop_step 041 "set pm2-startup failed"
-#fi
+check_step 040
+if [ "$?" -eq "0" ]; then
+   pm2 startup | grep sudo | cut -b 6- >/tmp/pm2-startup.sh && set_step 040 "install pm2-startup OK" || stop_step 040 "install pm2-startup failed"
+fi
+
+check_step 041
+if [ "$?" -eq "0" ]; then
+   chmod 777 /tmp/pm2-startup.sh | sudo bash /tmp/pm2-startup.sh  && set_step 041 "set pm2-startup OK" || stop_step 041 "set pm2-startup failed"
+fi
 
 check_step 042
 if [ "$?" -eq "0" ]; then
@@ -350,22 +348,22 @@ if [ "$?" -eq "0" ]; then
    node setupUsers aiointegrador $(pw2) true s && set_step 060 "cread aioapi user OK" || stop_step 060 "cread aioapi user failed"
 fi
 
-check_step 065
+check_step 061
 if [ "$?" -eq "0" ]; then
    cd /aio/aiop/aio-setup
-   node aio-start.js && set_step 065 "start aio modules OK" || stop_step 065 "start aio modules failed"
+   node aio-start.js && set_step 061 "start aio modules OK" || stop_step 061 "start aio modules failed"
 fi
 
-check_step 066
+check_step 062
 if [ "$?" -eq "0" ]; then
    cd /aio/aiop
-    pm2 save --force && set_step 066 "pm2 save OK" || stop_step 066 "pm2 save failed"
+    pm2 save --force && set_step 062 "pm2 save OK" || stop_step 062 "pm2 save failed"
 fi
 
-check_step 067
+check_step 063
 if [ "$?" -eq "0" ]; then
    cd /aio/aiop
-    pm2 list && set_step 067 "aio integrador status OK" || stop_step 067 "aio integrador status failed"
+    pm2 list && set_step 063 "aio integrador status OK" || stop_step 063 "aio integrador status failed"
 fi
 
 echo "Instalação concluida com sucesso !!!"

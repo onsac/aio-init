@@ -95,3 +95,12 @@ is_root_user(){
  [ $(id -u) -eq 0 ] && return $TRUE || return $FALSE
 }
 
+print_line()
+{
+   LINE1=""
+   for number in {1..$COLUMNS}
+   do
+      LINE1=$LINE1"="
+   done
+   echo "$LINE1"
+}

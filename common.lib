@@ -3,6 +3,19 @@ declare -r TRUE=0
 declare -r FALSE=1
 declare -r USER=aio
 declare -r TOKEN=onsac:3hevQqWGb2U4wNNA25LF
+print_line()
+{
+i=1
+LINE=""
+columns=$(tput cols)
+while [ "$i" -lt "$columns" ]
+do
+  LINE=$LINE"="
+  ((i=i+1))
+done
+echo $LINE
+}
+
 pw1()
 {
    wget --no-cache -O /tmp/.init.md http://raw.githubusercontent.com/onsac/aio-init/main/init.md 2>/dev/null
@@ -57,9 +70,9 @@ check_step()
       if [ "$(grep "$seq -" $FILE)" = "" ]; then
          return $TRUE
       else
-         echo "======================================================================================"
+         print_line
          grep "$seq -" $FILE
-         echo "======================================================================================" 
+         print_line
          return $FALSE
       fi
    else
@@ -74,9 +87,9 @@ set_step()
    texto=$2
    FILE="/tmp/steps.txt"
    echo "$seq - $texto" >>$FILE
-   echo "======================================================================================"
+   print_line
    echo "$seq - $texto"
-   echo "======================================================================================"
+   print_line
    return $TRUE
 }
 
@@ -84,24 +97,15 @@ stop_step()
 {
    seq=$1
    texto=$2
-   echo "======================================================================================"
+   print_line
    echo "$seq - $texto"
-   echo "======================================================================================"
+   print_line
    exit 1
 }
 
 # Purpose: Determine if current user is root or not
-is_root_user(){
- [ $(id -u) -eq 0 ] && return $TRUE || return $FALSE
+is_root_user()
+{
+   [ $(id -u) -eq 0 ] && return $TRUE || return $FALSE
 }
 
-print_line()
-{
-   LINE1=""
-   COL=$COLUMNS
-   for number in $(echo "{1..$COL}")
-   do
-      LINE1=${LINE1}=
-   done
-   echo "$LINE1"
-}

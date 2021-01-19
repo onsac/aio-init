@@ -74,10 +74,10 @@ pw2()
 
 check_step()
 {
-   if [ "$STEP" -eq "1" ];
+   if [ "$STEP" -eq "1" ]; then
       if [ -f "$FILE" ]; then
          QTD_STEPS=$(cat $FILE | wc -l)
-         if [ "$QTD_STEPS" -gt "1" ];
+         if [ "$QTD_STEPS" -gt "1" ]; then
             STEP=$QTD_STEPS
          fi
       fi

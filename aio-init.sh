@@ -83,8 +83,6 @@ else
    sudo su - $USER 
 fi
 
-get_common
-
 . /tmp/.common.lib
 
 cont_step

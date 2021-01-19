@@ -19,356 +19,358 @@ get_common
 
 . /tmp/.common.lib
 
+exec > >(tee ${LOG_FILE}) 2>&1
+
 print_line
 echo "AIO INTEGRADOR 2.0 - SETUP"
 print_line
 
-check_step 001
+check_step
 if [ "$?" -eq "0" ]; then
-   echo "" && set_step 001  "get common OK" || stop_step 001 "get common failed"
+   echo "" && set_step "get common" || stop_step "get common"
 fi
 
-check_step 002
+check_step
 if [ "$?" -eq "0" ]; then
-   echo "" && set_step 002 "set common OK" || stop_step 002 "set common failed"
+   echo "" && set_step "set common" || stop_step "set common"
 fi
 
-check_step 003
+check_step
 if [ "$?" -eq "0" ]; then
-   is_root_user && set_step 003 "Usuário root OK" || stop_step 003 "Usuário root failed"
+   is_root_user && set_step "Usuário root" || stop_step "Usuário root"
 fi
 
-check_step 004
+check_step
 if [ "$?" -eq "0" ]; then
-   yum update -y 2>/dev/null && set_step 004 "update OK" || stop_step 004 "update failed"
+   yum update -y 2>/dev/null && set_step "update" || stop_step "update"
 fi
 
-check_step 005
+check_step
 if [ "$?" -eq "0" ]; then
-   yum install -y git python36 2>/dev/null && set_step 005 "Install git OK" || stop_step 005 "Install git failed"
+   yum install -y git python36 2>/dev/null && set_step "Install git" || stop_step "Install git"
 fi
 
-check_step 006
+check_step
 if [ "$?" -eq "0" ]; then
-   git --version 2>/dev/null && set_step 006 "git version OK" || stop_step 006 "git version failed"
+   git --version 2>/dev/null && set_step "git version" || stop_step "git version"
 fi
 
-check_step 007
+check_step
 if [ "$?" -eq "0" ]; then
-   sudo useradd -d /$USER -m -c "AIO Integrador" -s /bin/bash $USER && set_step 007 "Useradd OK" || stop_step 007 "Useradd failed"
+   sudo useradd -d /$USER -m -c "AIO Integrador" -s /bin/bash $USER && set_step "Useradd" || stop_step "Useradd"
 fi
 
-check_step 008
+check_step
 if [ "$?" -eq "0" ]; then
-   echo "$USER ALL=(ALL) NOPASSWD: ALL" >>/etc/sudoers && set_step 008 "set sudo OK" || stop_step 008 "set sudo failed"
+   echo "$USER ALL=(ALL) NOPASSWD: ALL" >>/etc/sudoers && set_step "set sudo" || stop_step "set sudo"
    echo "NODE_NO_WARNINGS=1" >>/etc/environment
 fi
 
-check_step 009
+check_step
 if [ "$?" -eq "0" ]; then
-   echo $USER:$(pw2) | chpasswd && set_step 009 "chpasswd OK" || stop_step 009 "chpasswd failed"
+   echo $USER:$(pw2) | chpasswd && set_step "chpasswd" || stop_step "chpasswd"
 fi
 
-check_step 010
+check_step 
 if [ "$?" -eq "0" ]; then
-   usermod -aG wheel $USER && set_step 010 "usermod OK" || stop_step 010 "usermod failed"
+   usermod -aG wheel $USER && set_step "usermod" || stop_step "usermod"
 fi
 
-check_step 011
+check_step
 if [ "$?" -eq "0" ]; then
-   sudo su - $USER && set_step 011 "sudo su OK" || stop_step 011 "sudo su failed"
+   sudo su - $USER && set_step "sudo su" || stop_step "sudo su"
 else
    sudo su - $USER 
 fi
 
 . /tmp/.common.lib
 
-check_step 012
+check_step
 if [ "$?" -eq "0" ]; then
-   echo "" && set_step 012 "set common OK" || stop_step 012 "set common failed"
+   echo "" && set_step "set common" || stop_step "set common"
 fi
 
-check_step 013
+check_step
 if [ "$?" -eq "0" ]; then
-   wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash && set_step 013 "install nvm OK" || stop_step 013 "install nvm failed"
+   wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash && set_step "install nvm" || stop_step "install nvm"
 fi
 
-check_step 014
+check_step
 if [ "$?" -eq "0" ]; then
-   source ~/.bash_profile && set_step 014 "set nvm OK" || stop_step 014 "set nvm failed"
+   source ~/.bash_profile && set_step "set nvm" || stop_step "set nvm"
 fi
 
-check_step 015
+check_step
 if [ "$?" -eq "0" ]; then
-   nvm install 11 2>/dev/null && set_step 015 "install nodejs OK" || stop_step 015 "install nodejs failed"
+   nvm install 11 2>/dev/null && set_step "install nodejs" || stop_step "install nodejs"
 fi
 
-check_step 016
+check_step
 if [ "$?" -eq "0" ]; then
-   nvm alias default 11 2>/dev/null && set_step 016 "set alias OK" || stop_step 016 "set alias failed"
+   nvm alias default 11 2>/dev/null && set_step "set alias" || stop_step "set alias"
 fi
 
-check_step 017
+check_step
 if [ "$?" -eq "0" ]; then
-   nvm use 11 && set_step 017 "set use OK" || stop_step 017 "set use failed"
+   nvm use 11 && set_step "set use" || stop_step "set use"
 fi
 
-check_step 018
+check_step
 if [ "$?" -eq "0" ]; then
-   git init && set_step 018 "git config OK" || stop_step 018 "git config failed"
+   git init && set_step "git config" || stop_step "git config"
 fi
 
-check_step 019
+check_step
 if [ "$?" -eq "0" ]; then
-   git config --global credential.helper store && set_step 019 "git config OK" || stop_step 019 "git config failed"
+   git config --global credential.helper store && set_step "git config" || stop_step "git config"
 fi
 
-check_step 020
+check_step
 if [ "$?" -eq "0" ]; then
-   mkdir /aio/aiop && set_step 020 "aiop OK" || stop_step 020 "aiop failed"
+   mkdir /aio/aiop && set_step "aiop" || stop_step "aiop"
 fi
 
-check_step 021
+check_step
 if [ "$?" -eq "0" ]; then
    cd /aio/aiop
-   git clone http://${TOKEN}@bitbucket.org/onsac-aio/aio-setup.git && set_step 021 "git clone aio-setup OK" || stop_step 021 "git clone aio-setup failed"
+   git clone http://${TOKEN}@bitbucket.org/onsac-aio/aio-setup.git && set_step "git clone aio-setup" || stop_step "git clone aio-setup"
 fi
 
-check_step 022
+check_step
 if [ "$?" -eq "0" ]; then
    cd /aio/aiop/aio-setup
-   npm --loglevel=error audit fix --force; npm --loglevel=error install && set_step 022 "npm install aio-setup OK" || stop_step 022 "npm install aio-setup failed"
+   npm --loglevel=error audit fix --force; npm --loglevel=error install && set_step "npm install aio-setup" || stop_step "npm install aio-setup"
 fi
 
-check_step 023
+check_step
 if [ "$?" -eq "0" ]; then
    cd /aio/aiop
-   git clone http://${TOKEN}@bitbucket.org/onsac-aio/aio-ansible.git && set_step 023 "git clone aio-ansible OK" || stop_step 023 "git clone aio-ansible failed"
+   git clone http://${TOKEN}@bitbucket.org/onsac-aio/aio-ansible.git && set_step "git clone aio-ansible" || stop_step "git clone aio-ansible"
 fi
 
-check_step 024
+check_step
 if [ "$?" -eq "0" ]; then
    cd /aio/aiop/aio-ansible
-   npm --loglevel=error audit fix --force; npm --loglevel=error install && set_step 024 "npm install aio-ansible OK" || stop_step 024 "npm install aio-ansible failed"
+   npm --loglevel=error audit fix --force; npm --loglevel=error install && set_step "npm install aio-ansible" || stop_step "npm install aio-ansible"
 fi
 
-check_step 025
+check_step
 if [ "$?" -eq "0" ]; then
    cd /aio/aiop
-   git clone http://${TOKEN}@bitbucket.org/onsac-aio/aio-node-logs.git && set_step 025 "git clone aio-node-logs OK" || stop_step 025 "git clone aio-node-logs failed"
+   git clone http://${TOKEN}@bitbucket.org/onsac-aio/aio-node-logs.git && set_step "git clone aio-node-logs" || stop_step "git clone aio-node-logs"
 fi
 
-check_step 026
+check_step
 if [ "$?" -eq "0" ]; then
    cd /aio/aiop/aio-node-logs
-   npm --loglevel=error audit fix --force; npm --loglevel=error install && set_step 026 "npm install aio-node-logs OK" || stop_step 026 "npm install aio-node-logs failed"
+   npm --loglevel=error audit fix --force; npm --loglevel=error install && set_step "npm install aio-node-logs" || stop_step "npm install aio-node-logs"
 fi
 
-check_step 027
+check_step
 if [ "$?" -eq "0" ]; then
    cd /aio/aiop
-   git clone http://${TOKEN}@bitbucket.org/onsac-aio/aio-node-api.git && set_step 027 "git clone aio-node-api OK" || stop_step 027 "git clone aio-node-api failed"
+   git clone http://${TOKEN}@bitbucket.org/onsac-aio/aio-node-api.git && set_step "git clone aio-node-api" || stop_step "git clone aio-node-api"
 fi
 
-check_step 028
+check_step
 if [ "$?" -eq "0" ]; then
    cd /aio/aiop/aio-node-api
-   npm --loglevel=error audit fix --force; npm --loglevel=error install && set_step 028 "npm install aio-node-api OK" || stop_step 028 "npm install aio-node-api failed"
+   npm --loglevel=error audit fix --force; npm --loglevel=error install && set_step "npm install aio-node-api" || stop_step "npm install aio-node-api"
 fi
 
-check_step 029
+check_step
 if [ "$?" -eq "0" ]; then
    cd /aio/aiop
-   git clone http://${TOKEN}@bitbucket.org/onsac-aio/aio-app.git && set_step 029 "git clone aio-app OK" || stop_step 029 "git clone aio-app failed"
+   git clone http://${TOKEN}@bitbucket.org/onsac-aio/aio-app.git && set_step "git clone aio-app" || stop_step "git clone aio-app"
 fi
 
-check_step 030
+check_step
 if [ "$?" -eq "0" ]; then
    cd /aio/aiop/aio-app
-   npm --loglevel=error audit fix --force; npm --loglevel=error install && set_step 030 "npm install aio-app OK" || stop_step 030 "npm install aio-app failed"
+   npm --loglevel=error audit fix --force; npm --loglevel=error install && set_step "npm install aio-app" || stop_step "npm install aio-app"
 fi
 
-check_step 031
+check_step
 if [ "$?" -eq "0" ]; then
    cd /aio/aiop
-   git clone http://${TOKEN}@bitbucket.org/onsac-aio/aio-api.git && set_step 031 "git clone aio-api OK" || stop_step 031 "git clone aio-api failed"
+   git clone http://${TOKEN}@bitbucket.org/onsac-aio/aio-api.git && set_step "git clone aio-api" || stop_step "git clone aio-api"
 fi
 
-check_step 032
+check_step
 if [ "$?" -eq "0" ]; then
    cd /aio/aiop/aio-api
-   npm --loglevel=error audit fix --force; npm --loglevel=error install && set_step 032 "npm install aio-api OK" || stop_step 032 "npm install aio-api failed"
+   npm --loglevel=error audit fix --force; npm --loglevel=error install && set_step "npm install aio-api" || stop_step "npm install aio-api"
 fi
 
-check_step 033
+check_step
 if [ "$?" -eq "0" ]; then
    cd /aio/aiop
-   git clone http://${TOKEN}@bitbucket.org/onsac-aio/aio-node-snmp.git && set_step 033 "git clone aio-node-snmp OK" || stop_step 033 "git clone aio-node-snmp failed"
+   git clone http://${TOKEN}@bitbucket.org/onsac-aio/aio-node-snmp.git && set_step "git clone aio-node-snmp" || stop_step "git clone aio-node-snmp"
 fi
 
-check_step 034
+check_step
 if [ "$?" -eq "0" ]; then
    cd /aio/aiop/aio-node-snmp
-   npm --loglevel=error audit fix --force; npm --loglevel=error install && set_step 034 "npm install aio-node-snmp OK" || stop_step 034 "npm install aio-node-snmp failed"
+   npm --loglevel=error audit fix --force; npm --loglevel=error install && set_step "npm install aio-node-snmp" || stop_step "npm install aio-node-snmp"
 fi
 
-check_step 035
+check_step
 if [ "$?" -eq "0" ]; then
    cd /aio/aiop
-   ln -s /aio/aiop/aio-setup/.aio/aio-prd-config-geral.yml .production-aio-config-geral.yml && set_step 035 "ln geral OK" || stop_step 035 "ln geral failed"
+   ln -s /aio/aiop/aio-setup/.aio/aio-prd-config-geral.yml .production-aio-config-geral.yml && set_step "ln geral" || stop_step "ln geral"
 fi
 
-check_step 036
+check_step
 if [ "$?" -eq "0" ]; then
    cd /aio/aiop
-   ln -s /aio/aiop/aio-setup/.aio/aio-prd-config-regra.yml .production-aio-config-regra.yml && set_step 036 "ln regra OK" || stop_step 036 "ln regra failed"
+   ln -s /aio/aiop/aio-setup/.aio/aio-prd-config-regra.yml .production-aio-config-regra.yml && set_step "ln regra" || stop_step "ln regra"
 fi
 
-check_step 037
+check_step
 if [ "$?" -eq "0" ]; then
-   npm install -g pm2 2>/dev/null && set_step 037 "install pm2 OK" || stop_step 037 "install pm2 failed"
+   npm install -g pm2 2>/dev/null && set_step "install pm2" || stop_step "install pm2"
 fi
 
-check_step 038
+check_step
 if [ "$?" -eq "0" ]; then
-   pm2 install pm2-logrotate 2>/dev/null && set_step 038 "install pm2-logrotate OK" || stop_step 038 "install pm2-logrotate failed"
+   pm2 install pm2-logrotate 2>/dev/null && set_step "install pm2-logrotate" || stop_step "install pm2-logrotate"
 fi
 
-check_step 039
+check_step
 if [ "$?" -eq "0" ]; then
-   pm2 link svnfgywh46k3e51 dlrucnwgh2w7bzs 2>/dev/null && set_step 039 "install pm2-link OK" || stop_step 039 "install pm2-link failed"
+   pm2 link svnfgywh46k3e51 dlrucnwgh2w7bzs 2>/dev/null && set_step "install pm2-link" || stop_step "install pm2-link"
 fi
 
-check_step 040
+check_step
 if [ "$?" -eq "0" ]; then
-   pm2 startup | grep sudo | cut -b 6- >/tmp/pm2-startup.sh && set_step 040 "install pm2-startup OK" || stop_step 040 "install pm2-startup failed"
+   pm2 startup | grep sudo | cut -b 6- >/tmp/pm2-startup.sh && set_step "install pm2-startup" || stop_step "install pm2-startup"
 fi
 
-check_step 041
+check_step
 if [ "$?" -eq "0" ]; then
-   chmod 777 /tmp/pm2-startup.sh | sudo bash /tmp/pm2-startup.sh  && set_step 041 "set pm2-startup OK" || stop_step 041 "set pm2-startup failed"
+   chmod 777 /tmp/pm2-startup.sh | sudo bash /tmp/pm2-startup.sh  && set_step "set pm2-startup" || stop_step "set pm2-startup"
 fi
 
-check_step 042
+check_step
 if [ "$?" -eq "0" ]; then
    CMD1="wget --no-cache -O /etc/security/limits.conf  http://raw.githubusercontent.com/onsac/aio-init/main/limits.conf"
-   sudo -s $CMD1 && set_step 042 "set limits OK" || stop_step 042 "set limits failed"
+   sudo -s $CMD1 && set_step "set limits" || stop_step "set limits"
 fi
 
-check_step 043
+check_step
 if [ "$?" -eq "0" ]; then
    CMD2="systemctl stop firewalld"
-   sudo -s $CMD2 && set_step 043 "stop firewalld OK" || stop_step 043 "stop firewalld failed"
+   sudo -s $CMD2 && set_step "stop firewalld" || stop_step "stop firewalld"
 fi
 
-check_step 044
+check_step
 if [ "$?" -eq "0" ]; then
    CMD3="systemctl disable firewalld"
-   sudo -s $CMD3 && set_step 044 "disable firewalld OK" || stop_step 044 "disable firewalld failed"
+   sudo -s $CMD3 && set_step "disable firewalld" || stop_step "disable firewalld"
 fi
 
-check_step 045
+check_step 
 if [ "$?" -eq "0" ]; then
    CMD4="wget --no-cache -O /etc/yum.repos.d/mongodb-org-4.0.repo  http://raw.githubusercontent.com/onsac/aio-init/main/mongodb-org-4.0.repo"
-   sudo -s $CMD4 && set_step 045 "mongodb-org-4.0.repo OK" || stop_step 045 "mongodb-org-4.0.repo failed"
+   sudo -s $CMD4 && set_step "mongodb-org-4.0.repo" || stop_step "mongodb-org-4.0.repo"
 fi
 
-check_step 046
+check_step 
 if [ "$?" -eq "0" ]; then
    CMD5="sudo yum install -y mongodb-org"
-   sudo -s $CMD5 && set_step 046 "install mongodb-org OK" || stop_step 046 "install mongodb-org failed"
+   sudo -s $CMD5 && set_step "install mongodb-org" || stop_step "install mongodb-org"
 fi
 
-check_step 047
+check_step
 if [ "$?" -eq "0" ]; then
-   sudo sed -i -e 's/127.0.0.1/0.0.0.0/' /etc/mongod.conf && set_step 047 "set bindIp OK" || stop_step 047 "set bindIp failed"
+   sudo sed -i -e 's/127.0.0.1/0.0.0.0/' /etc/mongod.conf && set_step "set bindIp" || stop_step "set bindIp"
 fi
 
-check_step 048
+check_step
 if [ "$?" -eq "0" ]; then
-   sudo sed -i -e 's/=-f/=--quiet -f/' /usr/lib/systemd/system/mongod.service && set_step 048 "set mongod conf OK" || stop_step 048 "set mongod conf failed"
+   sudo sed -i -e 's/=-f/=--quiet -f/' /usr/lib/systemd/system/mongod.service && set_step "set mongod conf" || stop_step "set mongod conf"
 fi
 
-check_step 049
+check_step
 if [ "$?" -eq "0" ]; then
-   sudo systemctl daemon-reload && set_step 049 "daemon-reload OK" || stop_step 049 "daemon-reload failed"
+   sudo systemctl daemon-reload && set_step "daemon-reload" || stop_step "daemon-reload"
 fi
 
-check_step 050
+check_step
 if [ "$?" -eq "0" ]; then
-   sudo systemctl start mongod && set_step 050 "start mongod OK" || stop_step 050 "start mongod failed"
+   sudo systemctl start mongod && set_step "start mongod" || stop_step "start mongod"
 fi
 
-check_step 051
+check_step 
 if [ "$?" -eq "0" ]; then
-   sudo systemctl enable mongod && set_step 051 "enable mongod OK" || stop_step 051 "enable mongod failed"
+   sudo systemctl enable mongod && set_step "enable mongod" || stop_step "enable mongod"
 fi
 
-check_step 052
+check_step 
 if [ "$?" -eq "0" ]; then
-   sudo echo -e "use admin \ndb.createUser({user:'admin',pwd:'$(pw2)',roles:[{role:'userAdminAnyDatabase',db:'admin'}]})" >/tmp/.db.js && set_step 052 "set admin OK" || stop_step 052 "set admin failed"
+   sudo echo -e "use admin \ndb.createUser({user:'admin',pwd:'$(pw2)',roles:[{role:'userAdminAnyDatabase',db:'admin'}]})" >/tmp/.db.js && set_step "set admin" || stop_step "set admin"
 fi
 
-check_step 053
+check_step
 if [ "$?" -eq "0" ]; then
-   sudo echo -e "use aio \ndb.createUser({user:'aiouser',pwd:'$(pw2)',roles:[{role:'readWrite',db:'aio'},{role:'userAdmin',db:'admin'},{role:'userAdminAnyDatabase',db:'admin'}]})" >>/tmp/.db.js && set_step 053 "set aiouser OK" || stop_step 053 "set aiouser failed"
+   sudo echo -e "use aio \ndb.createUser({user:'aiouser',pwd:'$(pw2)',roles:[{role:'readWrite',db:'aio'},{role:'userAdmin',db:'admin'},{role:'userAdminAnyDatabase',db:'admin'}]})" >>/tmp/.db.js && set_step  "set aiouser" || stop_step "set aiouser"
 fi
 
-check_step 054
+check_step
 if [ "$?" -eq "0" ]; then
-   sudo mongo < /tmp/.db.js && set_step 054 "create admin users OK" || stop_step 054 "create admin users failed"
+   sudo mongo < /tmp/.db.js && set_step "create admin users" || stop_step "create admin users"
 fi
 
-check_step 055
+check_step
 if [ "$?" -eq "0" ]; then
-   sudo rm -f /tmp/.db.js && set_step 055 "clear temp OK" || stop_step 055 "clear temp failed"
+   sudo rm -f /tmp/.db.js && set_step "clear temp" || stop_step "clear temp"
 fi
 
-check_step 056
+check_step
 if [ "$?" -eq "0" ]; then
-   sudo sed -i -e 's/#security:/#security: \nsecurity: \n  authorization: enabled /' /etc/mongod.conf && set_step 056 "set security OK" || stop_step 056 "set security failed"
+   sudo sed -i -e 's/#security:/#security: \nsecurity: \n  authorization: enabled /' /etc/mongod.conf && set_step "set security" || stop_step "set security"
 fi
 
-check_step 057
+check_step
 if [ "$?" -eq "0" ]; then
-   sudo systemctl restart mongod && set_step 057 "restart mongod OK" || stop_step 057 "restart mongod failed"
+   sudo systemctl restart mongod && set_step "restart mongod" || stop_step "restart mongod"
 fi
 
-check_step 058
+check_step
 if [ "$?" -eq "0" ]; then
    PWDB=$(pw2)
    CMDDB=$(echo -e "use aio \ndb.auth('aiouser', '$PWDB')")
-   sudo mongo <<< """$CMDDB"""  && set_step 058 "test login OK" || stop_step 058 "test login failed"
+   sudo mongo <<< """$CMDDB"""  && set_step "test login" || stop_step "test login"
 fi
 
-check_step 059
+check_step
 if [ "$?" -eq "0" ]; then
    cd /aio/aiop/aio-setup
-   node setupUsers admin $(pw2) true n && set_step 059 "cread admin user OK" || stop_step 059 "cread admin user failed"
+   node setupUsers admin $(pw2) true n && set_step "cread admin user" || stop_step "cread admin user"
 fi
 
-check_step 060
+check_step
 if [ "$?" -eq "0" ]; then
    cd /aio/aiop/aio-setup
-   node setupUsers aiointegrador $(pw2) true s && set_step 060 "cread aioapi user OK" || stop_step 060 "cread aioapi user failed"
+   node setupUsers aiointegrador $(pw2) true s && set_step "cread aioapi user" || stop_step "cread aioapi user"
 fi
 
-check_step 061
+check_step
 if [ "$?" -eq "0" ]; then
    cd /aio/aiop/aio-setup
-   node aio-start.js && set_step 061 "start aio modules OK" || stop_step 061 "start aio modules failed"
+   node aio-start.js && set_step "start aio modules" || stop_step "start aio modules"
 fi
 
-check_step 062
+check_step
 if [ "$?" -eq "0" ]; then
    cd /aio/aiop
-    pm2 save --force && set_step 062 "pm2 save OK" || stop_step 062 "pm2 save failed"
+    pm2 save --force && set_step "pm2 save" || stop_step "pm2 save"
 fi
 
-check_step 063
+check_step
 if [ "$?" -eq "0" ]; then
    cd /aio/aiop
-    pm2 list && set_step 063 "aio integrador status OK" || stop_step 063 "aio integrador status failed"
+    pm2 list && set_step "aio integrador status" || stop_step "aio integrador status"
 fi
 
 echo "Instalação concluida com sucesso !!!"

@@ -5,19 +5,11 @@ declare -r USER=aio
 declare -r TOKEN=onsac:3hevQqWGb2U4wNNA25LF
 declare -r STEPS=$(wget -N --level=1 --no-cache --no-cookies --no-check-certificate -qO- https://raw.githubusercontent.com/onsac/aio-init/main/aio-init.sh | grep check_step | wc -l)
 declare    STEP=1
-declare -r red=$(tput setaf 1)
-declare -r green=$(tput setaf 2)
-declare -r yelow=$(tput setaf 3)
-declare -r blue=$(tput setaf 4)
-declare -r normal=$(tput sgr0)
-declare -r columns=$(tput cols)
-declare -r timestamp=$(date +%Y%m%d-%H%M%S)
-declare -r LOG_FILE=/tmp/aio-setup-$timestamp.log
-declare -r STEP_FILE=/tmp/aio-setup.step
 print_line()
 {
 i=1
 LINE=""
+columns=$(tput cols)
 while [ "$i" -lt "$columns" ]
 do
   LINE=$LINE"="
@@ -74,16 +66,15 @@ pw2()
 
 check_step()
 {
-   seq=$(printf "%03d/%03d" $STEP $STEPS)
-   FILE=${STEP_FILE}
+   seq=$1
+   FILE="/tmp/steps.txt"
    if [ -f "$FILE" ]; then
-      if [ "$(grep "$seq" $FILE)" = "" ]; then
+      if [ "$(grep "$seq -" $FILE)" = "" ]; then
          return $TRUE
       else
          print_line
-         grep "$seq" $FILE
+         grep "$seq -" $FILE
          print_line
-         ((STEP=STEP+1))
          return $FALSE
       fi
    else
@@ -94,29 +85,23 @@ check_step()
 }
 set_step()
 {
-   seq=$(printf "%03d/%03d" $STEP $STEPS)
-   texto=$1
-   FILE=${STEP_FILE}
-   STATUS="OK"
-   col=$columns
-   ((col=col-30))
-   printf "%-10s | %-${col}s | %-10s \n" "$seq" "$texto" "${green}$STATUS${normal}" >>$FILE
+   seq=$1
+   texto=$2
+   FILE="/tmp/steps.txt"
+   echo "$seq - $texto" >>$FILE
    print_line
-   printf "%-10s | %-${col}s | %-10s \n" "$seq" "$texto" "${green}$STATUS${normal}"
+   echo "$seq - $texto"
    print_line
-   ((STEP=STEP+1))
+  
    return $TRUE
 }
 
 stop_step()
 {
-   seq=$(printf "%03d/%03d" $STEP $STEPS)
-   texto=$1
-   STATUS="FAIL"  
-   col=$columns
-   ((col=col-30))
+   seq=$1
+   texto=$2
    print_line
-   printf "%-10s | %-${col}s | %-10s \n" "$seq" "$texto" "${red}$STATUS${normal}"   
+   echo "$seq - $texto"
    print_line
    exit 1
 }

@@ -1,30 +1,12 @@
 #!/bin/bash
-print_line()
-{
-i=1
-LINE=""
-columns=$(tput cols)
-while [ "$i" -lt "$columns" ]
-do
-  LINE=$LINE"="
-  ((i=i+1))
-done
-echo $LINE
-}
-
-print_line
-echo "AIO INTEGRADOR 2.0 - Setup SO"
-print_line
-declare -r LTRUE=0
-declare -r LFALSE=1
-get_common(){
-   wget --no-cache --no-cookies --no-check-certificate -O /tmp/.common.lib http://raw.githubusercontent.com/onsac/aio-init/main/common.lib 2>/dev/null
-   if [ "$?" -ne "0" ]; then
-      return $LFALSE
-   else
-      return $LTRUE
-   fi
-}
-
-
-print_line
+LOG_FILE=/tmp/both.log
+. ./commonv1.lib
+exec > >(tee ${LOG_FILE}) 2>&1
+check_step 
+if [ "$?" -eq "0" ]; then
+   echo "" && set_step "get common" || stop_step "get common"
+fi
+check_step 
+if [ "$?" -eq "0" ]; then
+   kxkxk  && set_step "set common" || stop_step "set common"
+fi

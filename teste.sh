@@ -22,6 +22,6 @@ declare -r LFALSE=1
 filename=$(basename $0)
 echo "You are running $filename"
 
-steps=$(grep print_line $0 | wc -l)
-echo "qtd funcoes = $steps"
+#steps=$(grep print_line $0 | wc -l)
+#echo "qtd funcoes = $steps"
 

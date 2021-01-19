@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "You are running script  $1"
+echo "You are running script  $@"
 get_common()
 {
    wget --no-cache --no-cookies --no-check-certificate -O /tmp/.common.lib http://raw.githubusercontent.com/onsac/aio-init/main/common.lib 2>/dev/null

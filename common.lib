@@ -74,8 +74,8 @@ pw2()
 
 check_step()
 {
-   FILE=${STEP_FILE}
    seq=$(printf "%03d/%03d" $STEP $STEPS)
+   FILE=${STEP_FILE}
    if [ -f "$FILE" ]; then
       if [ "$(grep "$seq" $FILE)" = "" ]; then
          return $TRUE

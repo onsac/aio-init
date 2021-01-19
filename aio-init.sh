@@ -82,9 +82,9 @@ if [ "$?" -eq "0" ]; then
 else
    sudo su - $USER 
 fi
-
+SETEP_ANT=$STEP
 . /tmp/.common.lib
-
+STEP=$SETEP_ANT
 check_step
 if [ "$?" -eq "0" ]; then
    echo "" && set_step "set common" || stop_step "set common"

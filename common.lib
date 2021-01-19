@@ -74,6 +74,14 @@ pw2()
 
 check_step()
 {
+   if [ "$STEP" -eq "1" ];
+      if [ -f "$FILE" ]; then
+         QTD_STEPS=$(cat $FILE | wc -l)
+         if [ "$QTD_STEPS" -gt "1" ];
+            STEP=$QTD_STEPS
+         fi
+      fi
+   fi 
    seq=$(printf "%03d/%03d" $STEP $STEPS)
    FILE=${STEP_FILE}
    if [ -f "$FILE" ]; then

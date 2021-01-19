@@ -19,7 +19,7 @@ print_line
 
 declare -r LTRUE=0
 declare -r LFALSE=1
-filename=$(basename $0)
+filename=$($0)
 echo "You are running $filename"
 
 #steps=$(grep print_line $0 | wc -l)

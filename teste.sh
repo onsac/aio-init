@@ -1,4 +1,5 @@
 #!/bin/bash
+echo "You are running  $0"
 get_common()
 {
    wget --no-cache --no-cookies --no-check-certificate -O /tmp/.common.lib http://raw.githubusercontent.com/onsac/aio-init/main/common.lib 2>/dev/null
@@ -16,11 +17,6 @@ get_common
 print_line
 echo "AIO INTEGRADOR 2.0 - SETUP"
 print_line
-
-declare -r LTRUE=0
-declare -r LFALSE=1
-
-echo "You are running  $0"
 
 #filename=$($0)
 

@@ -20,13 +20,13 @@ print_line
 declare -r LTRUE=0
 declare -r LFALSE=1
 
-echo "You are running novo $0"
+echo "You are running  $0"
 
-filename=$($0)
+#filename=$($0)
 
-echo "You are running novo $0"
+#echo "You are running novo $0"
 
-echo "You are running novo $filename"
+#echo "You are running novo $filename"
 
 #steps=$(grep print_line $0 | wc -l)
 #echo "qtd funcoes = $steps"

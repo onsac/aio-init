@@ -75,14 +75,6 @@ pw2()
 check_step()
 {
    FILE=${STEP_FILE}
-   if [ "$STEP" -eq "1" ]; then
-      if [ -f "$FILE" ]; then
-         QTD_STEPS=$(cat $FILE | wc -l)
-         if [ "$QTD_STEPS" -gt "1" ]; then
-            STEP=$QTD_STEPS
-         fi
-      fi
-   fi 
    seq=$(printf "%03d/%03d" $STEP $STEPS)
    if [ -f "$FILE" ]; then
       if [ "$(grep "$seq" $FILE)" = "" ]; then
@@ -127,6 +119,19 @@ stop_step()
    printf "%-10s | %-${col}s | %-10s \n" "$seq" "$texto" "${red}$STATUS${normal}"   
    print_line
    exit 1
+}
+
+cont_step()
+{
+   FILE=${STEP_FILE}
+   if [ "$STEP" -eq "1" ]; then
+      if [ -f "$FILE" ]; then
+         QTD_STEPS=$(cat $FILE | wc -l)
+         if [ "$QTD_STEPS" -gt "1" ]; then
+            STEP=$QTD_STEPS
+         fi
+      fi
+   fi
 }
 
 # Purpose: Determine if current user is root or not

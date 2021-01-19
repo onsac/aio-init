@@ -87,6 +87,8 @@ get_common
 
 . /tmp/.common.lib
 
+cont_step
+
 check_step
 if [ "$?" -eq "0" ]; then
    wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash && set_step "install nvm" || stop_step "install nvm"

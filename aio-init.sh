@@ -1,13 +1,13 @@
 #!/bin/bash
-echo "======================================================================================"
-echo "AIO INTEGRADOR 2.0 - SETUP"
-echo "======================================================================================"
-
+#########################################################
+# AIO INTEGRADOR 2.0 - SETUP                            #
+# OnSAC - 10/01/2020                                    #
+#########################################################
 declare -r LTRUE=0
 declare -r LFALSE=1
-
-get_common(){
-   wget --no-cache -O /tmp/.common.lib http://raw.githubusercontent.com/onsac/aio-init/main/common.lib 2>/dev/null
+get_common()
+{
+   wget --no-cache --no-cookies --no-check-certificate -O /tmp/.common.lib http://raw.githubusercontent.com/onsac/aio-init/main/common.lib 2>/dev/null
    if [ "$?" -ne "0" ]; then
       return $LFALSE
    else
@@ -16,7 +16,12 @@ get_common(){
 }
 
 get_common
+
 . /tmp/.common.lib
+
+print_line
+echo "AIO INTEGRADOR 2.0 - SETUP"
+print_line
 
 check_step 001
 if [ "$?" -eq "0" ]; then
@@ -367,4 +372,6 @@ if [ "$?" -eq "0" ]; then
 fi
 
 echo "Instalação concluida com sucesso !!!"
+
+rm -rf /tmp/.common.lib
 

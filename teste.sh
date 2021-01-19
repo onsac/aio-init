@@ -1,5 +1,6 @@
 #!/bin/bash
-get_common(){
+get_common()
+{
    wget --no-cache --no-cookies --no-check-certificate -O /tmp/.common.lib http://raw.githubusercontent.com/onsac/aio-init/main/common.lib 2>/dev/null
    if [ "$?" -ne "0" ]; then
       return $LFALSE
@@ -8,7 +9,7 @@ get_common(){
    fi
 }
 
-get_common && echo "" || echo "get common failed"; exit 1
+get_common
 
 . /tmp/.common.lib 
 
@@ -18,4 +19,7 @@ print_line
 
 declare -r LTRUE=0
 declare -r LFALSE=1
+
+filename=$(grep print_line $0 | wc -l)
+echo "qtd funcoes = $filename"
 

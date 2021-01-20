@@ -15,6 +15,7 @@ declare -r timestamp=$(date +%Y%m%d-%H%M%S)
 declare -r LOG_FILE=/tmp/aio-setup-$timestamp.log
 declare -r STEP_FILE=/tmp/aio-setup.step
 declare -r COUNT_FILE=/tmp/aio-setup.count
+
 print_line()
 {
 i=1
@@ -136,7 +137,6 @@ cont_step()
    fi
 }
 
-# Purpose: Determine if current user is root or not
 is_root_user()
 {
    [ $(id -u) -eq 0 ] && return $TRUE || return $FALSE

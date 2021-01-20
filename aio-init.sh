@@ -37,17 +37,17 @@ fi
 
 check_step
 if [ "$?" -eq "0" ]; then
-   is_root_user && set_step "Usuário root" || stop_step "Usuário root"
+   is_root_user && set_step "check root user" || stop_step "check root user"
 fi
 
 check_step
 if [ "$?" -eq "0" ]; then
-   yum update -y 2>/dev/null && set_step "update" || stop_step "update"
+   yum update -y 2>/dev/null && set_step "yum update" || stop_step "yum update"
 fi
 
 check_step
 if [ "$?" -eq "0" ]; then
-   yum install -y git python36 2>/dev/null && set_step "Install git" || stop_step "Install git"
+   yum install -y git python36 2>/dev/null && set_step "Install git and python" || stop_step "Install git and python"
 fi
 
 check_step
@@ -94,7 +94,7 @@ fi
 
 check_step
 if [ "$?" -eq "0" ]; then
-   source ~/.bash_profile && set_step "set nvm" || stop_step "set nvm"
+   source ~/.bash_profile && set_step "set bash_profile" || stop_step "set bash_profile"
 fi
 
 check_step
@@ -104,17 +104,17 @@ fi
 
 check_step
 if [ "$?" -eq "0" ]; then
-   nvm alias default 11 2>/dev/null && set_step "set alias" || stop_step "set alias"
+   nvm alias default 11 2>/dev/null && set_step "nvm alias" || stop_step "nvm alias"
 fi
 
 check_step
 if [ "$?" -eq "0" ]; then
-   nvm use 11 && set_step "set use" || stop_step "set use"
+   nvm use 11 && set_step "nvm use" || stop_step "nvm use"
 fi
 
 check_step
 if [ "$?" -eq "0" ]; then
-   git init && set_step "git config" || stop_step "git config"
+   git init && set_step "git init" || stop_step "git init"
 fi
 
 check_step
@@ -124,7 +124,7 @@ fi
 
 check_step
 if [ "$?" -eq "0" ]; then
-   mkdir /aio/aiop && set_step "aiop" || stop_step "aiop"
+   mkdir /aio/aiop && set_step "mkdir aiop" || stop_step "mkdir aiop"
 fi
 
 check_step
@@ -220,44 +220,44 @@ fi
 check_step
 if [ "$?" -eq "0" ]; then
    cd /aio/aiop
-   ln -s /aio/aiop/aio-setup/.aio/aio-prd-config-geral.yml .production-aio-config-geral.yml && set_step "ln geral" || stop_step "ln geral"
+   ln -s /aio/aiop/aio-setup/.aio/aio-prd-config-geral.yml .production-aio-config-geral.yml && set_step "ln config geral" || stop_step "ln config geral"
 fi
 
 check_step
 if [ "$?" -eq "0" ]; then
    cd /aio/aiop
-   ln -s /aio/aiop/aio-setup/.aio/aio-prd-config-regra.yml .production-aio-config-regra.yml && set_step "ln regra" || stop_step "ln regra"
+   ln -s /aio/aiop/aio-setup/.aio/aio-prd-config-regra.yml .production-aio-config-regra.yml && set_step "ln config regra" || stop_step "ln config regra"
 fi
 
 check_step
 if [ "$?" -eq "0" ]; then
-   npm install -g pm2 2>/dev/null && set_step "install pm2" || stop_step "install pm2"
+   npm install -g pm2 2>/dev/null && set_step "install pm2" || stop_step "npm install pm2"
 fi
 
 check_step
 if [ "$?" -eq "0" ]; then
-   pm2 install pm2-logrotate 2>/dev/null && set_step "install pm2-logrotate" || stop_step "install pm2-logrotate"
+   pm2 install pm2-logrotate 2>/dev/null && set_step "install pm2-logrotate" || stop_step "pm2 install pm2-logrotate"
 fi
 
 check_step
 if [ "$?" -eq "0" ]; then
-   pm2 link svnfgywh46k3e51 dlrucnwgh2w7bzs 2>/dev/null && set_step "install pm2-link" || stop_step "install pm2-link"
+   pm2 link svnfgywh46k3e51 dlrucnwgh2w7bzs 2>/dev/null && set_step "install pm2-link" || stop_step "pm2 install pm2-link"
 fi
 
 check_step
 if [ "$?" -eq "0" ]; then
-   pm2 startup | grep sudo | cut -b 6- >/tmp/pm2-startup.sh && set_step "install pm2-startup" || stop_step "install pm2-startup"
+   pm2 startup | grep sudo | cut -b 6- >/tmp/pm2-startup.sh && set_step "install pm2-startup" || stop_step "pm2 install pm2-startup"
 fi
 
 check_step
 if [ "$?" -eq "0" ]; then
-   chmod 777 /tmp/pm2-startup.sh | sudo bash /tmp/pm2-startup.sh  && set_step "set pm2-startup" || stop_step "set pm2-startup"
+   chmod 777 /tmp/pm2-startup.sh | sudo bash /tmp/pm2-startup.sh  && set_step "pm2-startup" || stop_step "pm2-startup"
 fi
 
 check_step
 if [ "$?" -eq "0" ]; then
    CMD1="wget --no-cache -O /etc/security/limits.conf  http://raw.githubusercontent.com/onsac/aio-init/main/limits.conf"
-   sudo -s $CMD1 && set_step "set limits" || stop_step "set limits"
+   sudo -s $CMD1 && set_step "set so limits" || stop_step "set so limits"
 fi
 
 check_step
@@ -291,32 +291,32 @@ fi
 
 check_step
 if [ "$?" -eq "0" ]; then
-   sudo sed -i -e 's/=-f/=--quiet -f/' /usr/lib/systemd/system/mongod.service && set_step "set mongod conf" || stop_step "set mongod conf"
+   sudo sed -i -e 's/=-f/=--quiet -f/' /usr/lib/systemd/system/mongod.service && set_step "set mongod service" || stop_step "set mongod service"
 fi
 
 check_step
 if [ "$?" -eq "0" ]; then
-   sudo systemctl daemon-reload && set_step "daemon-reload" || stop_step "daemon-reload"
+   sudo systemctl daemon-reload && set_step "daemon-reload" || stop_step "service daemon-reload"
 fi
 
 check_step
 if [ "$?" -eq "0" ]; then
-   sudo systemctl start mongod && set_step "start mongod" || stop_step "start mongod"
+   sudo systemctl start mongod && set_step "start mongod" || stop_step "service start mongod"
 fi
 
 check_step 
 if [ "$?" -eq "0" ]; then
-   sudo systemctl enable mongod && set_step "enable mongod" || stop_step "enable mongod"
+   sudo systemctl enable mongod && set_step "enable mongod" || stop_step "service enable mongod"
 fi
 
 check_step 
 if [ "$?" -eq "0" ]; then
-   sudo echo -e "use admin \ndb.createUser({user:'admin',pwd:'$(pw2)',roles:[{role:'userAdminAnyDatabase',db:'admin'}]})" >/tmp/.db.js && set_step "set admin" || stop_step "set admin"
+   sudo echo -e "use admin \ndb.createUser({user:'admin',pwd:'$(pw2)',roles:[{role:'userAdminAnyDatabase',db:'admin'}]})" >/tmp/.db.js && set_step "set admin user" || stop_step "set admin user"
 fi
 
 check_step
 if [ "$?" -eq "0" ]; then
-   sudo echo -e "use aio \ndb.createUser({user:'aiouser',pwd:'$(pw2)',roles:[{role:'readWrite',db:'aio'},{role:'userAdmin',db:'admin'},{role:'userAdminAnyDatabase',db:'admin'}]})" >>/tmp/.db.js && set_step  "set aiouser" || stop_step "set aiouser"
+   sudo echo -e "use aio \ndb.createUser({user:'aiouser',pwd:'$(pw2)',roles:[{role:'readWrite',db:'aio'},{role:'userAdmin',db:'admin'},{role:'userAdminAnyDatabase',db:'admin'}]})" >>/tmp/.db.js && set_step  "set aiouser user" || stop_step "set aiouser user"
 fi
 
 check_step
@@ -326,36 +326,36 @@ fi
 
 check_step
 if [ "$?" -eq "0" ]; then
-   sudo rm -f /tmp/.db.js && set_step "clear temp" || stop_step "clear temp"
+   sudo rm -f /tmp/.db.js && set_step "clear db temp" || stop_step "clear db temp"
 fi
 
 check_step
 if [ "$?" -eq "0" ]; then
-   sudo sed -i -e 's/#security:/#security: \nsecurity: \n  authorization: enabled /' /etc/mongod.conf && set_step "set security" || stop_step "set security"
+   sudo sed -i -e 's/#security:/#security: \nsecurity: \n  authorization: enabled /' /etc/mongod.conf && set_step "set mongodb security" || stop_step "set mongodb security"
 fi
 
 check_step
 if [ "$?" -eq "0" ]; then
-   sudo systemctl restart mongod && set_step "restart mongod" || stop_step "restart mongod"
+   sudo systemctl restart mongod && set_step "service restart mongod" || stop_step "service restart mongod"
 fi
 
 check_step
 if [ "$?" -eq "0" ]; then
    PWDB=$(pw2)
    CMDDB=$(echo -e "use aio \ndb.auth('aiouser', '$PWDB')")
-   sudo mongo <<< """$CMDDB"""  && set_step "test login" || stop_step "test login"
+   sudo mongo <<< """$CMDDB"""  && set_step "test mongodb login" || stop_step "test mongodb login"
 fi
 
 check_step
 if [ "$?" -eq "0" ]; then
    cd /aio/aiop/aio-setup
-   node setupUsers admin $(pw2) true n && set_step "cread admin user" || stop_step "cread admin user"
+   node setupUsers admin $(pw2) true n && set_step "cread aio admin user" || stop_step "cread aio admin user"
 fi
 
 check_step
 if [ "$?" -eq "0" ]; then
    cd /aio/aiop/aio-setup
-   node setupUsers aiointegrador $(pw2) true s && set_step "cread aioapi user" || stop_step "cread aioapi user"
+   node setupUsers aiointegrador $(pw2) true s && set_step "cread aio api user" || stop_step "cread aio api user"
 fi
 
 check_step

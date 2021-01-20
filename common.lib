@@ -91,9 +91,12 @@ check_step()
    else
       touch $FILE
       chmod 777 $FILE
+      touch $COUNT_FILE
+      chmod 777 $COUNT_FILE
       return $TRUE
    fi
 }
+
 set_step()
 {
    seq=$(printf "%03d/%03d" $STEP $STEPS)
@@ -121,6 +124,7 @@ stop_step()
    print_line
    printf "%-10s | %-${col}s | %-10s \n" "$seq" "$texto" "${red}$STATUS${normal}"   
    print_line
+   return 1 2>/dev/null
    exit 1
 }
 

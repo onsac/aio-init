@@ -129,6 +129,12 @@ fi
 
 check_step
 if [ "$?" -eq "0" ]; then
+   npm config set python /usr/bin/python3.6  && set_step "npm config set python" || stop_step "npm config set python"
+fi
+
+
+check_step
+if [ "$?" -eq "0" ]; then
    cd /aio/aiop
    git clone http://${TOKEN}@bitbucket.org/onsac-aio/aio-setup.git && set_step "git clone aio-setup" || stop_step "git clone aio-setup"
 fi
@@ -372,5 +378,4 @@ fi
 
 echo "Instalação concluida com sucesso !!!"
 
-rm -rf /tmp/.common.lib
 

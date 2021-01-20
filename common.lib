@@ -124,8 +124,7 @@ stop_step()
    print_line
    printf "%-10s | %-${col}s | %-10s \n" "$seq" "$texto" "${red}$STATUS${normal}"   
    print_line
-   return 1 2>/dev/null
-   exit 1
+   exit 1; exit 1
 }
 
 cont_step()

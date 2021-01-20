@@ -7,5 +7,15 @@ if [ "$?" -eq "0" ]; then
 fi
 check_step 
 if [ "$?" -eq "0" ]; then
-   kxkxk  && set_step "set common" || stop_step "set common"
+   echo "SAI"  && set_step "set common" || stop_step "set common"
 fi
+
+. ./common.lib
+
+cont_step
+
+check_step
+if [ "$?" -eq "0" ]; then
+   echo "VOLTEI"  && set_step "set common" || stop_step "set common"
+fi
+

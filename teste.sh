@@ -1,5 +1,4 @@
 #!/bin/bash
-echo "You are running script : $@"
 get_common()
 {
    wget --no-cache --no-cookies --no-check-certificate -O /tmp/.common.lib http://raw.githubusercontent.com/onsac/aio-init/main/common.lib 2>/dev/null
@@ -18,12 +17,25 @@ print_line
 echo "AIO INTEGRADOR 2.0 - SETUP"
 print_line
 
-#filename=$($0)
+exec > >(tee ${LOG_FILE}) 2>&1
 
-#echo "You are running novo $0"
+check_step
+if [ "$?" -eq "0" ]; then
+   echo "ENTREI" && set_step "get common" || stop_step "get common"
+fi
+check_step
+if [ "$?" -eq "0" ]; then
+   echo "SAI"  && set_step "set common" || stop_step "set common"
+fi
 
-#echo "You are running novo $filename"
+su - aio
 
-#steps=$(grep print_line $0 | wc -l)
-#echo "qtd funcoes = $steps"
+. ./common.lib
+
+cont_step
+
+check_step
+if [ "$?" -eq "0" ]; then
+   echo "VOLTEI"  && set_step "set common" || stop_step "set common"
+fi
 

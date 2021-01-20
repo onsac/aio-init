@@ -14,6 +14,7 @@ declare -r columns=$(tput cols)
 declare -r timestamp=$(date +%Y%m%d-%H%M%S)
 declare -r LOG_FILE=/tmp/aio-setup-$timestamp.log
 declare -r STEP_FILE=/tmp/aio-setup.step
+declare -r COUNT_FILE=/tmp/aio-setup.count
 print_line()
 {
 i=1
@@ -84,6 +85,7 @@ check_step()
          grep "$seq" $FILE
          print_line
          ((STEP=STEP+1))
+         echo "$STEP" >$COUNT_FILE
          return $FALSE
       fi
    else
@@ -105,6 +107,7 @@ set_step()
    printf "%-10s | %-${col}s | %-10s \n" "$seq" "$texto" "${green}$STATUS${normal}"
    print_line
    ((STEP=STEP+1))
+   echo "$STEP" >$COUNT_FILE
    return $TRUE
 }
 
@@ -123,14 +126,10 @@ stop_step()
 
 cont_step()
 {
-   FILE=${STEP_FILE}
-   if [ "$STEP" -eq "1" ]; then
-      if [ -f "$FILE" ]; then
-         QTD_STEPS=$(cat $FILE | wc -l)
-         if [ "$QTD_STEPS" -gt "1" ]; then
-            STEP=$QTD_STEPS
-         fi
-      fi
+   FILE=${COUNT_FILE}
+   if [ -f "$FILE" ]; then
+      QTD_STEPS=$(cat $FILE)
+      STEP=$QTD_STEPS
    fi
 }
 

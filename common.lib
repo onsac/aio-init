@@ -21,7 +21,7 @@ i=1
 LINE=""
 while [ "$i" -lt "$columns" ]
 do
-  LINE=$LINE"="
+  LINE=$LINE"_"
   ((i=i+1))
 done
 echo $LINE

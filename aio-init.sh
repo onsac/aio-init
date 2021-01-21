@@ -3,6 +3,7 @@
 # AIO INTEGRADOR 2.0 - SETUP                            #
 # OnSAC - 10/01/2020                                    #
 #########################################################
+echo "$$" > /var/run/aio-setup.pid
 declare -r LTRUE=0
 declare -r LFALSE=1
 get_common()
@@ -47,7 +48,7 @@ fi
 
 check_step
 if [ "$?" -eq "0" ]; then
-   yum install -y git python36 2>/dev/null && set_step "Install git and python" || stop_step "Install git and python"
+   yum install -y git python27 2>/dev/null && set_step "Install git and python" || stop_step "Install git and python"
 fi
 
 check_step
@@ -129,7 +130,7 @@ fi
 
 check_step
 if [ "$?" -eq "0" ]; then
-   npm config set python /usr/bin/python3.6  && set_step "npm config set python" || stop_step "npm config set python"
+   npm config set python /usr/bin/python2.7  && set_step "npm config set python" || stop_step "npm config set python"
 fi
 
 

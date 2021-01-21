@@ -125,8 +125,8 @@ stop_step()
    print_line
    printf "%-10s | %-${col}s | %-10s \n" "$seq" "$texto" "${red}$STATUS${normal}"   
    print_line
-   sudo pkill -F /var/run/start_gps-read.pid
-   exit 1
+   sudo pkill -F /var/run/aio-setup.pid
+   exit
 }
 
 cont_step()

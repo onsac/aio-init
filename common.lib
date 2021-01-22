@@ -176,8 +176,6 @@ reg_setup()
 
 upload-setup()
 {
-  git --no-pager log -1 --format="%H" 
-
   git config git-ftp.url $HOST_FTP
 
   git config git-ftp.user $USER_FTP
@@ -190,9 +188,9 @@ upload-setup()
 
   sleep 5
 
-  git add $REG_FILE
+  git add $REG_FILE &> /dev/null
 
-  git commit $REG_FILE -m "prod"
+  git commit $REG_FILE -m "prod" &> /dev/null
 
   git ftp push -f
 }

@@ -1,0 +1,19 @@
+{
+  "name": "aio-init",
+  "version": "1.0.0",
+  "description": "AIO Setup manager",
+  "main": "aio-init.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/onsac/aio-init.git"
+  },
+  "author": "OnSAC",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/onsac/aio-init/issues"
+  },
+  "homepage": "https://github.com/onsac/aio-init#readme"
+}

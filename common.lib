@@ -188,6 +188,8 @@ upload-setup()
 
   sleep 5
 
+  git ftp push
+
   git add $REG_FILE
 
   git commit $REG_FILE -m "prod"

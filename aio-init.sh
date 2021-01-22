@@ -58,6 +58,16 @@ fi
 
 check_step
 if [ "$?" -eq "0" ]; then
+   curl https://raw.githubusercontent.com/git-ftp/git-ftp/master/git-ftp > /bin/git-ftp && set_step "download git-ftp" || stop_step "download git-ftp"
+fi
+
+check_step
+if [ "$?" -eq "0" ]; then
+   chmod 755 /bin/git-ftp && set_step "chmod git-ftp" || stop_step "chmod git-ftp"
+fi
+
+check_step
+if [ "$?" -eq "0" ]; then
    sudo useradd -d /$USER -m -c "AIO Integrador" -s /bin/bash $USER && set_step "Useradd" || stop_step "Useradd"
 fi
 
@@ -375,6 +385,23 @@ check_step
 if [ "$?" -eq "0" ]; then
    cd /aio/aiop
     pm2 list && set_step "aio integrador status" || stop_step "aio integrador status"
+fi
+
+check_step
+if [ "$?" -eq "0" ]; then
+   mkdir /aio/aiop/aio-license && set_step "create aio-license" || stop_step "create aio-license"
+fi
+
+check_step
+if [ "$?" -eq "0" ]; then
+   cd /aio/aiop/aio-license
+   git init && set_step "init aio-license" || stop_step "init aio-license"
+fi
+
+check_step
+if [ "$?" -eq "0" ]; then
+   cd /aio/aiop/aio-license
+   upload-setup && set_step "upload aio-license" || stop_step "upload aio-license"
 fi
 
 echo "Instalação concluida com sucesso !!!"

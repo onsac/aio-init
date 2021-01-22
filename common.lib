@@ -15,6 +15,8 @@ declare -r timestamp=$(date +%Y%m%d-%H%M%S)
 declare -r LOG_FILE=/tmp/aio-setup-$timestamp.log
 declare -r STEP_FILE=/tmp/aio-setup.step
 declare -r COUNT_FILE=/tmp/aio-setup.count
+declare -r HOST_FTP='onsac-com.umbler.net'
+declare -r USER_FTP='aiointegrador'
 
 print_line()
 {
@@ -143,3 +145,52 @@ is_root_user()
    [ $(id -u) -eq 0 ] && return $TRUE || return $FALSE
 }
 
+reg_setup()
+{
+  customerNodeId='AIO-KNDTICV'
+  customerName='SERASA'
+  sponsorName='Ronaldo Moreira'
+  sponsorEmail='ronaldo@on-sac.com'
+  nodeKey='klcwcldkclksdmclkmdclksdmlckmdcmsii303-03dlaklsmxlakm'
+  date='2021-01-21'
+  installDate=$(date +"%Y-%m-%d")
+  systemRelease=$(cat /etc/system-release)
+  hostname=$(hostname)
+  ip=$(ping -c 1 $hostname | grep "icmp_seq=1" | sed 's/.*(//' | sed 's/).*//')
+  mac=$(cat /sys/class/net/*/address | head -1)
+  REG_FILE="aio-reg-setup-${customerNodeId}.json"
+  echo "{
+          'customerNodeId':'$customerNodeId',
+          'customerName':'$customerName',
+          'sponsorName':'$sponsorName',
+          'sponsorEmail':'$sponsorEmail',
+          'nodeKey':'$nodeKey',
+          'date':'$date',
+          'installDate':'$installDate',
+          'systemRelease':'$systemRelease',
+          'hostname':'$hostname',
+          'ip':'$ip',
+          'mac':'$mac'
+  }" >$REG_FILE
+}
+
+upload-setup()
+{
+  git config git-ftp.url $HOST_FTP
+
+  git config git-ftp.user $USER_FTP
+
+  git config git-ftp.password $(pw2)
+
+  git ftp init
+
+  reg_setup
+
+  sleep 5
+
+  git add $REG_FILE
+
+  git commit $REG_FILE -m "prod"
+
+  git ftp push -f
+}

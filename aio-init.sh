@@ -6,6 +6,7 @@
 echo "$$" > /var/run/aio-setup.pid
 declare -r LTRUE=0
 declare -r LFALSE=1
+declare -r ID=$1
 get_common()
 {
    wget --no-cache --no-cookies --no-check-certificate -O /tmp/.common.lib http://raw.githubusercontent.com/onsac/aio-init/main/common.lib 2>/dev/null
@@ -39,6 +40,12 @@ fi
 check_step
 if [ "$?" -eq "0" ]; then
    is_root_user && set_step "check root user" || stop_step "check root user"
+fi
+
+check_step
+if [ "$?" -eq "0" ]; then
+   check_url=$(echo 'https://raw.githubusercontent.com/onsac/aio-init/main/subscriptions/'${ID}'.json')
+   wget --no-cache --no-cookies --no-check-certificate -O /tmp/${ID}.json ${check_url} && set_step "check customer node ID : ${ID}" || stop_step "check customer node ID : ${ID}"
 fi
 
 check_step

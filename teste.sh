@@ -41,7 +41,11 @@ fi
 su - aio
 
 #######
+
+
 . /tmp/.common.lib 
+
+
 ######
 
 cont_step
@@ -63,3 +67,7 @@ if [ "$?" -eq "0" ]; then
    upload-setup && set_step "upload aio-license" || stop_step "upload aio-license"
 fi
 
+
+print_line
+echo FIM
+print_line

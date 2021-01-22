@@ -40,7 +40,9 @@ fi
 
 su - aio
 
+#######
 . /tmp/.common.lib 
+######
 
 cont_step
 

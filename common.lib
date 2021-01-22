@@ -176,6 +176,10 @@ reg_setup()
 
 upload-setup()
 {
+  git config user.name $USER_FTP
+
+  git config user.email $USER_FTP
+
   git config git-ftp.url $HOST_FTP
 
   git config git-ftp.user $USER_FTP
@@ -193,4 +197,15 @@ upload-setup()
   git commit $REG_FILE -m "prod" &> /dev/null
 
   git ftp push -f
+
+  git config --unset user.name
+
+  git config --unset user.email
+
+  git config --unset git-ftp.url
+
+  git config --unset git-ftp.user
+
+  git config --unset git-ftp.password
+
 }

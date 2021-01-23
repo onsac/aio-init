@@ -1,5 +1,6 @@
 #!/bin/bash
 ID=$1
+echo "$$" > /var/run/aio-setup.pid
 get_common()
 {
    wget --no-cache --no-cookies --no-check-certificate -O /tmp/.common.lib http://raw.githubusercontent.com/onsac/aio-init/main/common.lib 2>/dev/null

@@ -152,7 +152,8 @@ get_license()
   if [ -f ${ID_FILE} ]; then
      string=$(cat ${ID_FILE})
      IFS=',' read -r -a array <<< "$string"
-     subscription=$(echo ${array[0]} | sed 's/{subscription://')
+     code=$(echo ${array[0]} | sed 's/{code://')     
+     subscription=$(echo ${array[0]} | sed 's/subscription://')
      cnpj=$(echo ${array[1]} | sed 's/cnpj://')
      customer=$(echo ${array[2]} | sed 's/customer://')
      sponsorName=$(echo ${array[3]} | sed 's/sponsorName://')
@@ -179,7 +180,8 @@ reg_setup()
      hostname=$(hostname)
      ip=$(ping -c 1 $hostname | grep "icmp_seq=1" | sed 's/.*(//' | sed 's/).*//')
      mac=$(cat /sys/class/net/*/address | head -1)
-     echo "{'subscription':'$subscription',
+     echo "{'code':'$code',
+          'subscription':'$subscription',
           'cnpj':'$cnpj',
           'customer':'$customer',
           'sponsorName':'$sponsorName',

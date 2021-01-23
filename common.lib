@@ -213,18 +213,18 @@ upload-setup()
      git config git-ftp.user $USER_FTP
      git config git-ftp.password $(pw2)
      git ftp init 
-     if [ $? -ne "0" ];
+     if [ $? -ne "0" ]; then
         return $FALSE
      fi
      reg_setup $ID_LICENSE
-     if [ $? -ne "0" ];
+     if [ $? -ne "0" ]; then
         return $FALSE
      fi
      sleep 5
      git add $REG_FILE &> /dev/null
      git commit $REG_FILE -m "prod" &> /dev/null
      git ftp push -f
-     if [ $? -ne "0" ];
+     if [ $? -ne "0" ]; then
         return $FALSE
      fi
      git config --unset user.name

@@ -80,6 +80,7 @@ if [ "$?" -eq "0" ]; then
    upload-setup $ID && set_step "upload aio-license" || stop_step "upload aio-license"
 fi
 
+sudo rm -rf /tmp/.common.lib tmp/aio-setup.step
 
 print_line
 echo FIM

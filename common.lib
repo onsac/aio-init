@@ -145,67 +145,93 @@ is_root_user()
    [ $(id -u) -eq 0 ] && return $TRUE || return $FALSE
 }
 
+get_license()
+{
+  ID_LICENSE=$1
+  ID_FILE="/tmp/.${ID_LICENSE}.json"
+  if [ -f ${ID_FILE} ]; then
+     string=$(cat ${ID_FILE})
+     IFS=',' read -r -a array <<< "$string"
+     subscription=$(echo ${array[0]} | sed 's/{subscription://')
+     cnpj=$(echo ${array[1]} | sed 's/cnpj://')
+     customer=$(echo ${array[2]} | sed 's/customer://')
+     sponsorName=$(echo ${array[3]} | sed 's/sponsorName://')
+     sponsorEmail=$(echo ${array[4]} | sed 's/sponsorEmail://')
+     contact=$(echo ${array[5]} | sed 's/contact://')
+     type=$(echo ${array[6]} | sed 's/type://')
+     customerNodeId=$(echo ${array[7]} | sed 's/customerNodeId://')
+     license=$(echo ${array[8]} | sed 's/license://')
+     date=$(echo ${array[9]} | sed 's/date://' | sed 's/.$//')
+     return $TRUE
+   else
+     return $FALSE 
+   fi  
+}
+
 reg_setup()
 {
-  customerNodeId='AIO-KNDTICV'
-  customerName='SERASA'
-  sponsorName='Ronaldo Moreira'
-  sponsorEmail='ronaldo@on-sac.com'
-  nodeKey='klcwcldkclksdmclkmdclksdmlckmdcmsii303-03dlaklsmxlakm'
-  date='2021-01-21'
-  installDate=$(date +"%Y-%m-%d")
-  systemRelease=$(cat /etc/system-release)
-  hostname=$(hostname)
-  ip=$(ping -c 1 $hostname | grep "icmp_seq=1" | sed 's/.*(//' | sed 's/).*//')
-  mac=$(cat /sys/class/net/*/address | head -1)
-  REG_FILE="aio-reg-setup-${customerNodeId}.json"
-  echo "{
-          'customerNodeId':'$customerNodeId',
-          'customerName':'$customerName',
+  ID_LICENSE=$1
+  ID_FILE="/tmp/.${ID_LICENSE}.json"
+  REG_FILE="${ID_LICENSE}.json"
+  if [ -f ${ID_FILE} ]; then
+     installDate=$(date +"%Y-%m-%d")
+     systemRelease=$(cat /etc/system-release)
+     hostname=$(hostname)
+     ip=$(ping -c 1 $hostname | grep "icmp_seq=1" | sed 's/.*(//' | sed 's/).*//')
+     mac=$(cat /sys/class/net/*/address | head -1)
+     echo "{'subscription':'$subscription',
+          'cnpj':'$cnpj',
+          'customer':'$customer',
           'sponsorName':'$sponsorName',
           'sponsorEmail':'$sponsorEmail',
-          'nodeKey':'$nodeKey',
+          'contact':'$contact',
+          'type':'$type',
+          'customerNodeId':'$customerNodeId',
+          'license':'$license',
           'date':'$date',
           'installDate':'$installDate',
           'systemRelease':'$systemRelease',
           'hostname':'$hostname',
           'ip':'$ip',
-          'mac':'$mac'
-  }" >$REG_FILE
+          'mac':'$mac'}" >$REG_FILE
+    return $TRUE
+  else
+    return $FALSE
+  fi
 }
 
 upload-setup()
 {
-  git config user.name $USER_FTP
-
-  git config user.email $USER_FTP
-
-  git config git-ftp.url $HOST_FTP
-
-  git config git-ftp.user $USER_FTP
-
-  git config git-ftp.password $(pw2)
-
-  git ftp init
-
-  reg_setup
-
-  sleep 5
-
-  git add $REG_FILE &> /dev/null
-
-  git commit $REG_FILE -m "prod" &> /dev/null
-
-  git ftp push -f
-
-  git config --unset user.name
-
-  git config --unset user.email
-
-  git config --unset git-ftp.url
-
-  git config --unset git-ftp.user
-
-  git config --unset git-ftp.password
-
+  ID_LICENSE=$1
+  REG_FILE="${ID_LICENSE}.json"
+  if [ -f ${REG_FILE} ]; then
+     git config user.name $USER_FTP
+     git config user.email $USER_FTP
+     git config git-ftp.url $HOST_FTP
+     git config git-ftp.user $USER_FTP
+     git config git-ftp.password $(pw2)
+     git ftp init 
+     if [ $? -ne "0" ];
+        return $FALSE
+     fi
+     reg_setup $ID_LICENSE
+     if [ $? -ne "0" ];
+        return $FALSE
+     fi
+     sleep 5
+     git add $REG_FILE &> /dev/null
+     git commit $REG_FILE -m "prod" &> /dev/null
+     git ftp push -f
+     if [ $? -ne "0" ];
+        return $FALSE
+     fi
+     git config --unset user.name
+     git config --unset user.email
+     git config --unset git-ftp.url
+     git config --unset git-ftp.user
+     git config --unset git-ftp.password
+     return $TRUE
+  else
+     return $FALSE
+  fi
 }

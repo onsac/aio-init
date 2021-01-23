@@ -70,8 +70,13 @@ fi
 
 check_step
 if [ "$?" -eq "0" ]; then
+   get_license $ID && set_step "get aio-license" || stop_step "get aio-license"
+fi
+
+check_step
+if [ "$?" -eq "0" ]; then
    cd /aio/aiop/aio-license
-   upload-setup && set_step "upload aio-license" || stop_step "upload aio-license"
+   upload-setup $ID && set_step "upload aio-license" || stop_step "upload aio-license"
 fi
 
 

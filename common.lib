@@ -195,6 +195,7 @@ reg_setup()
        'hostname':'$hostname',
        'ip':'$ip',
        'mac':'$mac'}" >$REG_FILE
+  echo $REG_FILE
 }
 
 upload-setup()

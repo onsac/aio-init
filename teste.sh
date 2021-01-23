@@ -1,6 +1,8 @@
 #!/bin/bash
 ID=$1
 echo "$$" > /var/run/aio-setup.pid
+echo "$ID" >/tmp/aio-setup.id
+
 get_common()
 {
    wget -N --level=1 --no-cache --no-cookies --no-check-certificate -O /tmp/.common.lib http://raw.githubusercontent.com/onsac/aio-init/main/common.lib 2>/dev/null
@@ -68,6 +70,8 @@ if [ "$?" -eq "0" ]; then
    cd /aio/aiop/aio-license
    git init && set_step "init aio-license" || stop_step "init aio-license"
 fi
+
+echo "ID = $ID"
 
 check_step
 if [ "$?" -eq "0" ]; then

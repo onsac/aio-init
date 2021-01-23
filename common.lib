@@ -138,6 +138,9 @@ cont_step()
       QTD_STEPS=$(cat $FILE)
       STEP=$QTD_STEPS
    fi
+   if [ -f "/tmp/aio-setup.id" ]; then
+      ID=$(cat /tmp/aio-setup.id)
+   fi 
 }
 
 is_root_user()

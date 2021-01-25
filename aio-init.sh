@@ -150,7 +150,6 @@ if [ "$?" -eq "0" ]; then
    npm config set python /usr/bin/python2.7  && set_step "npm config set python" || stop_step "npm config set python"
 fi
 
-
 check_step
 if [ "$?" -eq "0" ]; then
    cd /aio/aiop
@@ -407,10 +406,39 @@ fi
 
 check_step
 if [ "$?" -eq "0" ]; then
-   cd /aio/aiop/aio-license
-   upload-setup && set_step "upload aio-license" || stop_step "upload aio-license"
+   get_license $ID && set_step "get aio-license" || stop_step "get aio-license"
+else 
+   get_license $ID 
 fi
 
+check_step
+if [ "$?" -eq "0" ]; then
+   cd /aio/aiop/aio-license
+   set_upload && set_step "set upload aio-license" || stop_step "set upload aio-license"
+fi
+
+check_step
+if [ "$?" -eq "0" ]; then
+   cd /aio/aiop/aio-license
+   reg_setup $ID && set_step "reg-setup" || stop_step "reg-setup"
+else 
+   reg_setup $ID
+fi
+
+check_step
+if [ "$?" -eq "0" ]; then
+   cd /aio/aiop/aio-license
+   upload_setup $ID && set_step "upload aio-license" || stop_step "upload aio-license"
+fi
+
+check_step
+if [ "$?" -eq "0" ]; then
+   sudo rm -rf /tmp/.*.lib /tmp/*.step /tmp/*.count /tmp/.*.json /tmp/pm2*.sh && set_step "clear all temp files" || stop_step "clear all temp files"
+fi
+
+print_line
 echo "Instalação concluida com sucesso !!!"
+print_line
+
 
 

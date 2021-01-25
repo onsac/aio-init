@@ -155,17 +155,17 @@ get_license()
   if [ -f ${ID_FILE} ]; then
      string=$(cat ${ID_FILE})
      IFS=',' read -r -a array <<< "$string"
-     code=$(echo ${array[0]} | sed 's/{code://')     
-     subscription=$(echo ${array[0]} | sed 's/subscription://')
-     cnpj=$(echo ${array[1]} | sed 's/cnpj://')
-     customer=$(echo ${array[2]} | sed 's/customer://')
-     sponsorName=$(echo ${array[3]} | sed 's/sponsorName://')
-     sponsorEmail=$(echo ${array[4]} | sed 's/sponsorEmail://')
-     contact=$(echo ${array[5]} | sed 's/contact://')
-     type=$(echo ${array[6]} | sed 's/type://')
-     customerNodeId=$(echo ${array[7]} | sed 's/customerNodeId://')
-     license=$(echo ${array[8]} | sed 's/license://')
-     date=$(echo ${array[9]} | sed 's/date://' | sed 's/.$//')
+     code=$(echo ${array[0]} | sed 's/{"code"://' | sed 's/"//g')     
+     subscription=$(echo ${array[1]} | sed 's/"subscription"://' | sed 's/"//g')
+     cnpj=$(echo ${array[2]} | sed 's/"cnpj"://' | sed 's/\"//g')
+     customer=$(echo ${array[3]} | sed 's/"customer"://' | sed 's/"//g')
+     sponsorName=$(echo ${array[4]} | sed 's/"sponsorName"://' | sed 's/"//g')
+     sponsorEmail=$(echo ${array[5]} | sed 's/"sponsorEmail"://' | sed 's/"//g')
+     contact=$(echo ${array[6]} | sed 's/"contact"://' | sed 's/"//g')
+     type=$(echo ${array[7]} | sed 's/"type"://' | sed 's/"//g')
+     customerNodeId=$(echo ${array[8]} | sed 's/"customerNodeId"://' | sed 's/"//g')
+     license=$(echo ${array[9]} | sed 's/"license"://' | sed 's/"//g')
+     date=$(echo ${array[10]} | sed 's/"date"://' | sed 's/"//g' | sed 's/.$//')
      return $TRUE
    else
      return $FALSE 

@@ -1,21 +1,16 @@
 #!/bin/bash
 . ./common.lib
 exec > >(tee ${LOG_FILE}) 2>&1
-check_step 
-if [ "$?" -eq "0" ]; then
-   echo "ENTREI" && set_step "get common" || stop_step "get common"
-fi
-check_step 
-if [ "$?" -eq "0" ]; then
-   echo "SAI"  && set_step "set common" || stop_step "set common"
-fi
-
-. ./common.lib
-
-cont_step
-
+ID="AIO-92O099DF"
 check_step
 if [ "$?" -eq "0" ]; then
-   echo "VOLTEI"  && set_step "set common" || stop_step "set common"
+   get_license $ID && set_step "get license" || stop_step "get license"
+else
+   get_license $ID 
+fi
+if [ "$?" -eq "0" ]; then
+   reg_setup $ID && set_step "reg setup" || stop_step "reg setup"
+else
+   get_license $ID
 fi
 

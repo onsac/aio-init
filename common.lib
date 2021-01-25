@@ -198,6 +198,7 @@ reg_setup()
        'ip':'$ip',
        'mac':'$mac'}" >$REG_FILE
   echo $REG_FILE
+  return $TRUE
 }
 
 set-upload()
@@ -208,6 +209,7 @@ set-upload()
   git config git-ftp.user $USER_FTP
   git config git-ftp.password $(pw2)
   git ftp init
+  return $TRUE
 }
 
 upload-setup()

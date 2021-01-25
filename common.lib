@@ -201,7 +201,7 @@ reg_setup()
   return $TRUE
 }
 
-set-upload()
+set_upload()
 {
   git config user.name $USER_FTP
   git config user.email $USER_FTP
@@ -209,10 +209,9 @@ set-upload()
   git config git-ftp.user $USER_FTP
   git config git-ftp.password $(pw2)
   git ftp init
-  return $TRUE
 }
 
-upload-setup()
+upload_setup()
 {
   ID_LICENSE=$1
   REG_FILE="${ID_LICENSE}.json"

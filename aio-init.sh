@@ -404,6 +404,9 @@ if [ "$?" -eq "0" ]; then
    git init && set_step "init aio-license" || stop_step "init aio-license"
 fi
 
+cont_step
+echo $ID
+
 check_step
 if [ "$?" -eq "0" ]; then
    get_license $ID && set_step "get aio-license" || stop_step "get aio-license"

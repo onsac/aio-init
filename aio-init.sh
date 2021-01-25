@@ -45,7 +45,7 @@ fi
 check_step
 if [ "$?" -eq "0" ]; then
    check_url=$(echo 'https://raw.githubusercontent.com/onsac/aio-init/main/subscriptions/'${ID}'.json')
-   wget --no-cache --no-cookies --no-check-certificate -O /tmp/${ID}.json ${check_url} && set_step "check customer node ID : ${ID}" || stop_step "check customer node ID : ${ID}"
+   wget --no-cache --no-cookies --no-check-certificate -O /tmp/.${ID}.json ${check_url} && set_step "check customer node ID : ${ID}" || stop_step "check customer node ID : ${ID}"
 fi
 
 check_step

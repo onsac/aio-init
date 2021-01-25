@@ -3,10 +3,12 @@
 # AIO INTEGRADOR 2.0 - SETUP                            #
 # OnSAC - 10/01/2020                                    #
 #########################################################
-echo "$$" > /var/run/aio-setup.pid
 declare -r LTRUE=0
 declare -r LFALSE=1
 declare -r ID=$1
+echo "$$" > /var/run/aio-setup.pid
+echo "$ID" >/tmp/aio-setup.id
+
 get_common()
 {
    wget --no-cache --no-cookies --no-check-certificate -O /tmp/.common.lib http://raw.githubusercontent.com/onsac/aio-init/main/common.lib 2>/dev/null

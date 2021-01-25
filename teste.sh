@@ -90,7 +90,6 @@ if [ "$?" -eq "0" ]; then
    reg_setup $ID && set_step "reg-setup" || stop_step "reg-setup"
 fi
 
-
 check_step
 if [ "$?" -eq "0" ]; then
    cd /aio/aiop/aio-license

@@ -407,7 +407,6 @@ if [ "$?" -eq "0" ]; then
 fi
 
 cont_step
-echo $ID
 
 check_step
 if [ "$?" -eq "0" ]; then
@@ -438,7 +437,7 @@ fi
 
 check_step
 if [ "$?" -eq "0" ]; then
-   sudo rm -rf /tmp/.*.lib /tmp/*.step /tmp/*.count /tmp/.*.json /tmp/pm2*.sh && set_step "clear all temp files" || stop_step "clear all temp files"
+   sudo rm -rf /tmp/.*.lib /tmp/*.step /tmp/*.count /tmp/*.id /tmp/.*.json /tmp/pm2*.sh && echo "clear all temp files" || echo "clear all temp files"
 fi
 
 print_line

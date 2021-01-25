@@ -81,6 +81,19 @@ fi
 check_step
 if [ "$?" -eq "0" ]; then
    cd /aio/aiop/aio-license
+   set-upload && set_step "set upload aio-license" || stop_step "set upload aio-license"
+fi
+
+check_step
+if [ "$?" -eq "0" ]; then
+   cd /aio/aiop/aio-license
+   reg-setup $ID && set_step "reg-setup" || stop_step "reg-setup"
+fi
+
+
+check_step
+if [ "$?" -eq "0" ]; then
+   cd /aio/aiop/aio-license
    upload-setup $ID && set_step "upload aio-license" || stop_step "upload aio-license"
 fi
 

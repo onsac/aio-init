@@ -1,1 +1,16 @@
-{"code":"AIO-001","subscription":"AIO INTEGRADOR - Wokload Automation","cnpj":"17.357.405/0001-84","customer":"OnSAC","sponsorName":"Ronaldo Moreira","sponsorEmail":"ronaldo@on-sac.com","contact":"021999432929","type":"trial","customerNodeId":"AIO-92O099DF","license":"AlpBnVGOeIjFTyMmYnY2uZOnroVunnOuVfvGQK2jt/H07TCw2YlDXdVmMZ7Q2vaCDRX/VL1OW9NgSXYoR4jdSg==","date":"2021-01-23"}
+{'code':'AIO-001',
+       'subscription':'AIO INTEGRADOR - Wokload Automation',
+       'cnpj':'17.357.405/0001-84',
+       'customer':'OnSAC',
+       'sponsorName':'Ronaldo Moreira',
+       'sponsorEmail':'ronaldo@on-sac.com',
+       'contact':'021999432929',
+       'type':'trial',
+       'customerNodeId':'AIO-92O099DF',
+       'license':'AlpBnVGOeIjFTyMmYnY2uZOnroVunnOuVfvGQK2jt/H07TCw2YlDXdVmMZ7Q2vaCDRX/VL1OW9NgSXYoR4jdSg==',
+       'date':'2021-01-23',
+       'installDate':'2021-01-25',
+       'systemRelease':'CentOS Linux release 8.3.2011',
+       'hostname':'aio-app1.onsac.com',
+       'ip':'192.168.1.64',
+       'mac':'08:00:27:cb:90:b5'}

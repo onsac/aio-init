@@ -15,8 +15,8 @@ declare -r timestamp=$(date +%Y%m%d-%H%M%S)
 declare -r LOG_FILE=/tmp/aio-setup-$timestamp.log
 declare -r STEP_FILE=/tmp/aio-setup.step
 declare -r COUNT_FILE=/tmp/aio-setup.count
-declare -r HOST_FTP='onsac-com.umbler.net'
-declare -r USER_FTP='aiointegrador'
+declare -r HOST_FTP='185.28.21.224'
+declare -r USER_FTP='u592090662.aiointegrador'
 
 print_line()
 {

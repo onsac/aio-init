@@ -164,18 +164,6 @@ if [ "$?" -eq "0" ]; then
    npm --loglevel=error audit fix --force; npm --loglevel=error install && set_step "npm install aio-setup" || stop_step "npm install aio-setup"
 fi
 
-check_step
-if [ "$?" -eq "0" ]; then
-   cd /aio/aiop
-   git clone http://${TOKEN}@bitbucket.org/onsac-aioc/aio-node-logs.git && set_step "git clone aio-node-logs" || stop_step "git clone aio-node-logs"
-fi
-
-check_step
-if [ "$?" -eq "0" ]; then
-   cd /aio/aiop/aio-node-logs
-   npm --loglevel=error audit fix --force; npm --loglevel=error install && set_step "npm install aio-node-logs" || stop_step "npm install aio-node-logs"
-fi
-
 if [ "$?" -eq "0" ]; then
    cd /aio/aiop
    git clone http://${TOKEN}@bitbucket.org/onsac-aioc/scout-app.git && set_step "git clone scout-app" || stop_step "git clone scout-app"
